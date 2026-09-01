@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 <title>Panch Kailash — A Journey Across Five Sacred Peaks</title>
 
@@ -14,34 +14,43 @@
   -webkit-tap-highlight-color:transparent;
 }
 
+html{
+  scroll-behavior:smooth;
+}
+
 body{
-  font-family:'Georgia',serif;
-  background:#0b0d10;
+  font-family:Georgia,serif;
+  background:#080a0d;
   color:#f4f1ea;
   overflow-x:hidden;
 }
 
-/* ================= NAV ================= */
+/* ================= NAVIGATION ================= */
 
 nav{
   position:fixed;
   top:0;
+  left:0;
   width:100%;
   display:flex;
   justify-content:space-between;
   align-items:center;
   padding:18px 24px;
-  z-index:20;
-  background:linear-gradient(to bottom,rgba(0,0,0,.65),transparent);
+  z-index:50;
+  background:linear-gradient(
+    to bottom,
+    rgba(0,0,0,.72),
+    transparent
+  );
 }
 
-nav .logo{
+.logo{
   font-size:18px;
-  letter-spacing:2px;
+  letter-spacing:3px;
   font-weight:bold;
 }
 
-nav .menu-icon{
+.menu-icon{
   font-size:26px;
   cursor:pointer;
 }
@@ -51,6 +60,7 @@ nav .menu-icon{
 .hero{
   position:relative;
   height:100vh;
+  min-height:600px;
   overflow:hidden;
   background:#05060a;
   touch-action:none;
@@ -65,6 +75,12 @@ nav .menu-icon{
   transform-origin:0 0;
   will-change:transform;
 }
+
+/*
+ IMPORTANT:
+ Images are in repository ROOT.
+ There is NO images/ folder.
+*/
 
 .pan-layer img{
   position:absolute;
@@ -82,53 +98,69 @@ nav .menu-icon{
 
 .marker{
   position:absolute;
-  width:26px;
-  height:26px;
+  width:100px;
+  height:80px;
   transform:translate(-50%,-50%);
   cursor:pointer;
-  z-index:5;
+  z-index:10;
 }
 
 .marker .dot{
-  width:16px;
-  height:16px;
+  position:absolute;
+  top:34px;
+  left:50%;
+  width:18px;
+  height:18px;
+  transform:translateX(-50%);
   background:#d4af6a;
-  border:2px solid #fff;
+  border:2px solid white;
   border-radius:50%;
-  margin:5px auto 0;
-  box-shadow:0 0 12px rgba(212,175,106,.9);
+  box-shadow:
+    0 0 12px rgba(212,175,106,.95),
+    0 0 28px rgba(212,175,106,.5);
   animation:pulseDot 2s infinite;
 }
 
 .marker::before{
   content:"";
   position:absolute;
-  top:21px;
+  top:30px;
   left:50%;
-  width:26px;
-  height:26px;
-  border:1px solid rgba(212,175,106,.6);
+  width:28px;
+  height:28px;
+  border:1px solid rgba(212,175,106,.75);
   border-radius:50%;
   transform:translateX(-50%);
   animation:pulseRing 2s infinite;
 }
 
-.marker .marker-label{
+.marker-label{
   position:absolute;
-  top:-22px;
+  top:0;
   left:50%;
   transform:translateX(-50%);
-  font-size:.65rem;
+  width:max-content;
+  max-width:180px;
+  text-align:center;
+  font-family:Georgia,serif;
+  font-size:.68rem;
+  font-weight:bold;
   letter-spacing:1px;
   white-space:nowrap;
-  color:#f4f1ea;
-  text-shadow:0 2px 6px rgba(0,0,0,.9);
+  color:#fff;
+  text-shadow:
+    0 2px 5px #000,
+    0 0 10px #000;
   pointer-events:none;
 }
 
 @keyframes pulseDot{
-  0%,100%{transform:scale(1)}
-  50%{transform:scale(1.25)}
+  0%,100%{
+    transform:translateX(-50%) scale(1);
+  }
+  50%{
+    transform:translateX(-50%) scale(1.25);
+  }
 }
 
 @keyframes pulseRing{
@@ -136,6 +168,7 @@ nav .menu-icon{
     transform:translateX(-50%) scale(.6);
     opacity:.9;
   }
+
   100%{
     transform:translateX(-50%) scale(1.8);
     opacity:0;
@@ -152,73 +185,76 @@ nav .menu-icon{
   justify-content:center;
   align-items:center;
   text-align:center;
-  z-index:15;
+  z-index:20;
   pointer-events:none;
-  transition:opacity .45s ease,transform .45s ease;
-  padding:0 20px;
+  padding:20px;
+  transition:
+    opacity .45s ease,
+    transform .45s ease;
 }
 
 .hero-title-overlay.faded{
   opacity:0;
-  transform:scale(1.04);
+  transform:scale(.96);
 }
 
 .hero-title-overlay h1{
-  font-family:'Arial Black','Helvetica Neue',Arial,sans-serif;
+  font-family:Arial Black,Helvetica,sans-serif;
   font-weight:900;
-  font-size:clamp(3.2rem,15vw,8rem);
+  font-size:clamp(3.4rem,15vw,8.5rem);
   letter-spacing:2px;
-  color:rgba(255,255,255,.96);
-  line-height:.88;
+  line-height:.9;
+  color:rgba(255,255,255,.97);
   text-shadow:
-    0 6px 30px rgba(0,0,0,.55),
-    0 2px 8px rgba(0,0,0,.8);
+    0 6px 35px rgba(0,0,0,.7),
+    0 0 45px rgba(255,255,255,.08);
 }
 
 .hero-title-overlay .tagline{
   font-family:Georgia,serif;
   font-style:italic;
-  font-size:clamp(.9rem,2.2vw,1.2rem);
+  font-size:clamp(.9rem,2.5vw,1.25rem);
   color:#e6e1d4;
   margin-top:22px;
-  text-shadow:0 2px 10px rgba(0,0,0,.7);
+  text-shadow:0 2px 10px rgba(0,0,0,.9);
 }
 
-/* ================= HINT ================= */
+/* ================= HERO HINT ================= */
 
 .hero-hint{
   position:absolute;
-  bottom:24px;
+  bottom:25px;
   left:50%;
   transform:translateX(-50%);
-  font-size:.7rem;
+  z-index:25;
+  width:100%;
+  text-align:center;
+  font-size:.68rem;
   letter-spacing:2px;
-  color:#cfc9b8;
-  z-index:15;
-  text-shadow:0 2px 8px rgba(0,0,0,.7);
+  color:#d2cbbb;
+  text-shadow:0 2px 8px #000;
   pointer-events:none;
-  animation:fadeHint 4s infinite;
-  white-space:nowrap;
+  animation:hintFade 3s infinite;
 }
 
-@keyframes fadeHint{
-  0%,100%{opacity:.4}
+@keyframes hintFade{
+  0%,100%{opacity:.35}
   50%{opacity:1}
 }
 
 /* ================= CONTENT ================= */
 
 section.content{
-  padding:70px 24px;
+  padding:80px 24px;
   max-width:1100px;
-  margin:0 auto;
+  margin:auto;
 }
 
 .section-title{
-  font-size:clamp(1.6rem,4vw,2.4rem);
+  font-size:clamp(1.7rem,4vw,2.5rem);
   text-align:center;
-  margin-bottom:12px;
   letter-spacing:2px;
+  margin-bottom:12px;
 }
 
 .section-sub{
@@ -228,6 +264,8 @@ section.content{
   margin-bottom:50px;
   font-size:.95rem;
 }
+
+/* ================= CARDS ================= */
 
 .kailash-grid{
   display:grid;
@@ -241,65 +279,70 @@ section.content{
   }
 }
 
-/* ================= CARDS ================= */
-
 .tilt-card{
   position:relative;
-  height:300px;
-  border-radius:6px;
+  height:310px;
+  border-radius:8px;
   overflow:hidden;
   cursor:pointer;
-  box-shadow:0 20px 40px rgba(0,0,0,.5);
   border:1px solid #2a2d33;
-  transition:transform .35s ease,box-shadow .35s ease;
+  box-shadow:0 20px 45px rgba(0,0,0,.55);
+  transition:
+    transform .3s ease,
+    border-color .3s ease;
 }
 
 .tilt-card:hover{
-  transform:translateY(-5px);
-  box-shadow:0 25px 50px rgba(0,0,0,.65);
+  transform:translateY(-6px);
+  border-color:#d4af6a;
 }
 
 .tilt-card img{
   position:absolute;
-  top:0;
-  left:0;
+  inset:0;
   width:100%;
   height:100%;
   object-fit:cover;
+  transition:transform .5s ease;
+}
+
+.tilt-card:hover img{
+  transform:scale(1.05);
 }
 
 .tilt-card .overlay{
   position:absolute;
   inset:0;
-  background:linear-gradient(
-    to top,
-    rgba(5,6,10,.95) 15%,
-    rgba(5,6,10,.05) 65%
-  );
   display:flex;
   flex-direction:column;
   justify-content:flex-end;
-  padding:20px;
+  padding:22px;
+  background:
+    linear-gradient(
+      to top,
+      rgba(5,6,10,.96) 10%,
+      rgba(5,6,10,.35) 65%,
+      transparent
+    );
 }
 
 .tilt-card h3{
-  font-size:1.3rem;
-  color:#f4f1ea;
-  margin-bottom:4px;
+  font-size:1.35rem;
+  margin-bottom:5px;
 }
 
 .tilt-card .loc{
-  font-size:.75rem;
+  font-size:.72rem;
   color:#c9c2b0;
   text-transform:uppercase;
-  letter-spacing:1px;
+  letter-spacing:1.5px;
 }
 
 /* ================= FOOTER ================= */
 
 footer{
   text-align:center;
-  padding:40px 20px;
+  padding:45px 20px;
   color:#666;
   font-size:.8rem;
   border-top:1px solid #1c1f26;
@@ -311,7 +354,7 @@ footer{
   display:none;
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.88);
+  background:rgba(0,0,0,.9);
   z-index:100;
   justify-content:center;
   align-items:flex-start;
@@ -326,15 +369,16 @@ footer{
 .modal-box{
   background:#0f1216;
   border:1px solid #2a2d33;
-  max-width:640px;
+  max-width:680px;
   width:100%;
   margin:40px auto;
-  border-radius:6px;
+  border-radius:8px;
   overflow:hidden;
+  box-shadow:0 30px 80px rgba(0,0,0,.7);
 }
 
 .modal-hero{
-  height:220px;
+  height:240px;
   background-size:cover;
   background-position:center;
   position:relative;
@@ -344,110 +388,169 @@ footer{
   content:"";
   position:absolute;
   inset:0;
-  background:linear-gradient(to top,#0f1216,transparent);
+  background:
+    linear-gradient(
+      to top,
+      #0f1216,
+      transparent 65%
+    );
 }
 
 .modal-close{
   position:absolute;
   top:14px;
   right:14px;
-  background:rgba(0,0,0,.5);
+  z-index:5;
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  background:rgba(0,0,0,.6);
   border:1px solid #d4af6a;
   color:#d4af6a;
-  width:34px;
-  height:34px;
-  border-radius:50%;
-  font-size:1.1rem;
+  font-size:18px;
   cursor:pointer;
-  z-index:2;
 }
 
 .modal-body{
-  padding:24px 28px 32px;
+  padding:25px 28px 35px;
 }
 
 .modal-body h2{
-  font-size:1.8rem;
   color:#d4af6a;
+  font-size:1.9rem;
   letter-spacing:1px;
-  margin-bottom:4px;
+  margin-bottom:5px;
 }
 
-.modal-body .modal-loc{
+.modal-loc{
   color:#a9a396;
-  font-size:.85rem;
+  font-size:.82rem;
   letter-spacing:1px;
-  margin-bottom:20px;
+  margin-bottom:22px;
+  text-transform:uppercase;
+  line-height:1.5;
+}
+
+.status-badge{
+  display:inline-block;
+  font-size:.68rem;
+  letter-spacing:1.5px;
+  padding:5px 12px;
+  border:1px solid #d4af6a;
+  color:#d4af6a;
+  border-radius:20px;
+  margin-bottom:12px;
   text-transform:uppercase;
 }
 
 .quick-facts{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:12px;
-  margin-bottom:24px;
+  gap:14px;
   border-top:1px solid #23262e;
   border-bottom:1px solid #23262e;
-  padding:16px 0;
+  padding:18px 0;
+  margin-bottom:25px;
 }
 
-.quick-facts .fact-label{
-  font-size:.7rem;
+.fact-label{
+  font-size:.68rem;
   color:#8f8a7c;
   letter-spacing:1px;
   text-transform:uppercase;
+  margin-bottom:5px;
 }
 
-.quick-facts .fact-value{
-  font-size:.95rem;
+.fact-value{
+  font-size:.9rem;
   color:#f4f1ea;
-  margin-bottom:10px;
+  line-height:1.4;
 }
 
 .modal-body h4{
   color:#d4af6a;
-  font-size:.85rem;
+  font-size:.8rem;
   letter-spacing:2px;
-  margin:18px 0 8px;
+  margin:20px 0 9px;
   text-transform:uppercase;
 }
 
 .modal-body p{
   color:#c9c2b0;
   font-size:.9rem;
-  line-height:1.6;
-  margin-bottom:6px;
-}
-
-.status-badge{
-  display:inline-block;
-  font-size:.7rem;
-  letter-spacing:1px;
-  padding:4px 12px;
-  border:1px solid #d4af6a;
-  color:#d4af6a;
-  border-radius:20px;
-  margin-bottom:10px;
-  text-transform:uppercase;
+  line-height:1.65;
 }
 
 .disclaimer{
-  font-size:.75rem;
+  font-size:.72rem;
   color:#6b6a63;
   font-style:italic;
-  margin-top:20px;
-  padding-top:14px;
+  margin-top:22px;
+  padding-top:15px;
   border-top:1px solid #23262e;
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:600px){
+
+  nav{
+    padding:16px 18px;
+  }
+
+  .logo{
+    font-size:15px;
+  }
+
+  .hero{
+    min-height:560px;
+  }
+
+  .marker{
+    transform:translate(-50%,-50%) scale(.85);
+  }
+
+  .hero-title-overlay h1{
+    font-size:clamp(3rem,16vw,5.5rem);
+  }
+
+  .hero-hint{
+    font-size:.58rem;
+    letter-spacing:1.4px;
+  }
+
+  section.content{
+    padding:65px 18px;
+  }
+
+  .modal-overlay{
+    padding:10px;
+  }
+
+  .modal-box{
+    margin:20px auto;
+  }
+
+  .modal-body{
+    padding:22px 20px 30px;
+  }
+
+  .quick-facts{
+    gap:16px 10px;
+  }
 }
 </style>
 </head>
 
 <body>
 
+<!-- ================= NAV ================= -->
+
 <nav>
   <div class="logo">PANCH KAILASH</div>
   <div class="menu-icon">☰</div>
 </nav>
+
 
 <!-- ================= HERO ================= -->
 
@@ -455,49 +558,102 @@ footer{
 
   <div class="pan-layer" id="panLayer">
 
-    <!-- MAIN MOVABLE HERO IMAGE -->
+    <!-- ROOT IMAGE — NO images/ FOLDER -->
+
     <img
-      src="images/0db44277-5b9b-4617-9a13-0b1ba8492cb0.webp"
+      src="0db44277-5b9b-4617-9a13-0b1ba8492cb0.webp"
       alt="Panch Kailash Panorama"
       id="heroImg"
-    />
+    >
+
 
     <!-- KINNAUR -->
-    <div class="marker" id="m-kinnaur" style="top:44%;left:10%;">
-      <div class="marker-label">KINNAUR KAILASH</div>
+
+    <div
+      class="marker"
+      id="m-kinnaur"
+      style="top:44%;left:10%;"
+    >
+      <div class="marker-label">
+        KINNAUR KAILASH
+      </div>
+
       <div class="dot"></div>
     </div>
+
 
     <!-- MANIMAHESH -->
-    <div class="marker" id="m-manimahesh" style="top:38%;left:29%;">
-      <div class="marker-label">MANIMAHESH KAILASH</div>
+
+    <div
+      class="marker"
+      id="m-manimahesh"
+      style="top:38%;left:29%;"
+    >
+      <div class="marker-label">
+        MANIMAHESH KAILASH
+      </div>
+
       <div class="dot"></div>
     </div>
+
 
     <!-- ADI -->
-    <div class="marker" id="m-adi" style="top:35%;left:50%;">
-      <div class="marker-label">ADI KAILASH</div>
+
+    <div
+      class="marker"
+      id="m-adi"
+      style="top:35%;left:50%;"
+    >
+      <div class="marker-label">
+        ADI KAILASH
+      </div>
+
       <div class="dot"></div>
     </div>
+
 
     <!-- SHRIKHAND -->
-    <div class="marker" id="m-shrikhand" style="top:38%;left:70%;">
-      <div class="marker-label">SHRIKHAND MAHADEV</div>
+
+    <div
+      class="marker"
+      id="m-shrikhand"
+      style="top:38%;left:70%;"
+    >
+      <div class="marker-label">
+        SHRIKHAND MAHADEV
+      </div>
+
       <div class="dot"></div>
     </div>
 
-    <!-- MANSAROVAR -->
-    <div class="marker" id="m-mansarovar" style="top:40%;left:88%;">
-      <div class="marker-label">KAILASH MANSAROVAR</div>
+
+    <!-- MOUNT KAILASH -->
+
+    <div
+      class="marker"
+      id="m-mansarovar"
+      style="top:40%;left:88%;"
+    >
+      <div class="marker-label">
+        KAILASH MANSAROVAR
+      </div>
+
       <div class="dot"></div>
     </div>
 
   </div>
 
-  <!-- HERO TITLE -->
-  <div class="hero-title-overlay" id="titleOverlay">
 
-    <h1>PANCH<br>KAILASH</h1>
+  <!-- HERO TITLE -->
+
+  <div
+    class="hero-title-overlay"
+    id="titleOverlay"
+  >
+
+    <h1>
+      PANCH<br>KAILASH
+    </h1>
 
     <div class="tagline">
       A Journey Across Five Sacred Peaks
@@ -505,11 +661,13 @@ footer{
 
   </div>
 
+
   <div class="hero-hint">
     DRAG TO EXPLORE • PINCH TO ZOOM • TAP A PEAK
   </div>
 
 </section>
+
 
 <!-- ================= FIVE KAILASH ================= -->
 
@@ -523,139 +681,266 @@ footer{
     Tap any peak on the panorama, or browse below
   </p>
 
-  <div class="kailash-grid" id="cardGrid"></div>
+  <div
+    class="kailash-grid"
+    id="cardGrid"
+  ></div>
 
 </section>
 
+
+<!-- ================= FOOTER ================= -->
+
 <footer>
-  © 2026 Panch Kailash — Research-backed travel information.
+  © 2026 Panch Kailash —
+  Research-backed travel information.
   Not an official pilgrimage authority.
 </footer>
 
+
 <!-- ================= MODAL ================= -->
 
-<div class="modal-overlay" id="modalOverlay">
+<div
+  class="modal-overlay"
+  id="modalOverlay"
+>
 
   <div class="modal-box">
 
-    <div class="modal-hero" id="modalHero">
+    <div
+      class="modal-hero"
+      id="modalHero"
+    >
 
       <button
         class="modal-close"
-        onclick="closeModal()"
+        id="modalClose"
       >
         ✕
       </button>
 
     </div>
 
-    <div class="modal-body" id="modalBody"></div>
+    <div
+      class="modal-body"
+      id="modalBody"
+    ></div>
 
   </div>
 
 </div>
 
+
 <script>
 
 /* =========================================================
-   FIVE KAILASH IMAGE DATA
+   PANCH KAILASH DATA
 ========================================================= */
 
 const kailashData = {
 
-  kinnaur:{
+  kinnaur: {
+
     name:"Kinnaur Kailash",
+
     alt:"Kinner Kailash",
-    location:"Kinnaur District, Himachal Pradesh, India",
-    altitude:"Summit ~6,050 m / Shivling ~4,800 m",
-    difficulty:"High to Expedition-level",
-    duration:"3–5 days (yatra) / 6–8 days (Parikrama)",
-    season:"July – August (Shravan month)",
-    cost:"Not officially published; estimate ₹15,000 – ₹35,000",
-    permit:"Adventure Activity Rules 2017 permit + police registration",
+
+    location:
+      "Kinnaur District, Himachal Pradesh, India",
+
+    altitude:
+      "Summit ~6,050 m / Shivling ~4,800 m",
+
+    difficulty:
+      "High to Expedition-level",
+
+    duration:
+      "3–5 days (yatra) / 6–8 days (Parikrama)",
+
+    season:
+      "July – August (Shravan month)",
+
+    cost:
+      "Not officially published; estimate ₹15,000 – ₹35,000",
+
+    permit:
+      "Adventure Activity Rules 2017 permit + police registration",
+
     status:"SEASONAL",
 
-    image:"images/eb384ae0-c0bb-4def-b511-190079473d48.webp",
+    image:
+      "eb384ae0-c0bb-4def-b511-190079473d48.webp",
 
-    overview:"Home to a towering natural rock Shivling that appears to change color through the day. One of the most remote and demanding treks among the five, with very limited rescue infrastructure.",
+    overview:
+      "Home to a towering natural rock Shivling that appears to change color through the day. One of the more remote and demanding treks among the five, with limited rescue infrastructure.",
 
-    route:"Reckong Peo → Kalpa → Powari → Tangling (check-post) → Maling Khata → Shivling darshan point"
+    route:
+      "Reckong Peo → Kalpa → Powari → Tangling → Maling Khata → Shivling darshan point"
+
   },
 
-  manimahesh:{
+
+  manimahesh: {
+
     name:"Manimahesh Kailash",
+
     alt:"Chamba Kailash",
-    location:"Chamba District (Bharmour), Himachal Pradesh, India",
-    altitude:"5,653 m / 18,547 ft",
-    difficulty:"Moderate (most accessible of the five)",
-    duration:"2–3 days (core yatra)",
-    season:"August – September (Janmashtami to Radha Ashtami)",
-    cost:"₹3,000 – ₹22,000 (approx.)",
-    permit:"Mandatory online registration, ₹50 fee (manimaheshyatra.hp.gov.in)",
+
+    location:
+      "Chamba District (Bharmour), Himachal Pradesh, India",
+
+    altitude:
+      "5,653 m / 18,547 ft",
+
+    difficulty:
+      "Moderate (most accessible of the five)",
+
+    duration:
+      "2–3 days (core yatra)",
+
+    season:
+      "August – September (Janmashtami to Radha Ashtami)",
+
+    cost:
+      "₹3,000 – ₹22,000 (approx.)",
+
+    permit:
+      "Mandatory online registration; verify current fee and portal before travel",
+
     status:"SEASONAL",
 
-    image:"images/panorama-bfce809f-706a-4f54-af98-49e4d6cae831.png",
+    image:
+      "panorama-bfce809f-706a-4f54-af98-49e4d6cae831.png",
 
-    overview:"The most accessible of the five, suitable for a wider range of pilgrims. The trek ends at the glacial Manimahesh Lake, with the Kailash peak reflected in its waters.",
+    overview:
+      "The most accessible of the five, suitable for a wider range of pilgrims. The trek ends at the glacial Manimahesh Lake, with the Kailash peak reflected in its waters.",
 
-    route:"Bharmour → Hadsar → Dhancho → Gauri Kund / Shiva Krotri → Manimahesh Lake"
+    route:
+      "Bharmour → Hadsar → Dhancho → Gauri Kund / Shiva Krotri → Manimahesh Lake"
+
   },
 
-  adi:{
+
+  adi: {
+
     name:"Adi Kailash",
+
     alt:"Chhota Kailash",
-    location:"Pithoragarh District, Uttarakhand, India",
-    altitude:"~5,945 m (also reported as 6,191 m)",
-    difficulty:"Moderate",
-    duration:"6–8 days",
-    season:"May – October",
-    cost:"₹25,000 – ₹1,50,000 (approx.)",
-    permit:"Inner Line Permit (official portal: pass.pithoragarh.online)",
+
+    location:
+      "Pithoragarh District, Uttarakhand, India",
+
+    altitude:
+      "~5,945 m (also reported as 6,191 m)",
+
+    difficulty:
+      "Moderate",
+
+    duration:
+      "6–8 days",
+
+    season:
+      "May – October",
+
+    cost:
+      "₹25,000 – ₹1,50,000 (approx.)",
+
+    permit:
+      "Inner Line Permit — verify current official requirements",
+
     status:"SEASONAL",
 
-    image:"images/911f1828-7225-4606-8fd5-f950170646ab.webp",
+    image:
+      "911f1828-7225-4606-8fd5-f950170646ab.webp",
 
-    overview:"Known as 'Chhota Kailash', this peak near the Indo-Tibet border resembles Mount Kailash in shape. The journey also covers the mystical Om Parvat, famous for its natural 'ॐ' snow pattern.",
+    overview:
+      "Known as 'Chhota Kailash', this peak near the Indo-Tibet border resembles Mount Kailash in shape. The journey also covers the mystical Om Parvat, famous for its natural 'ॐ' snow pattern.",
 
-    route:"Dharchula → Gunji → Kuti Village → Jolingkong (Parvati Sarovar, Gauri Kund) → side trip to Om Parvat"
+    route:
+      "Dharchula → Gunji → Kuti Village → Jolingkong → Parvati Sarovar → Gauri Kund → Om Parvat side trip"
+
   },
 
-  shrikhand:{
+
+  shrikhand: {
+
     name:"Shrikhand Mahadev",
+
     alt:"Shikhar Kailash",
-    location:"Kullu District, Himachal Pradesh, India",
-    altitude:"~17,000 – 18,570 ft",
-    difficulty:"Very High (toughest of the five)",
-    duration:"4–5 days",
-    season:"July only (10–12 day official window)",
-    cost:"₹5,000 – ₹15,000 (approx., DIY)",
-    permit:"Mandatory online registration + medical certificate (shrikhandyatra.hp.gov.in)",
+
+    location:
+      "Kullu District, Himachal Pradesh, India",
+
+    altitude:
+      "~17,000 – 18,570 ft",
+
+    difficulty:
+      "Very High (toughest of the five)",
+
+    duration:
+      "4–5 days",
+
+    season:
+      "July only (official window varies)",
+
+    cost:
+      "₹5,000 – ₹15,000 (approx., DIY)",
+
+    permit:
+      "Mandatory registration + medical requirements; verify current rules",
+
     status:"CHECK BEFORE TRAVEL",
 
-    image:"images/1aebea2f-ed66-4843-80ef-f381f65cfe50.webp",
+    image:
+      "1aebea2f-ed66-4843-80ef-f381f65cfe50.webp",
 
-    overview:"Widely regarded as the most physically demanding of the five Kailash journeys — a steep, high-altitude trek to a 75-foot natural Shivalingam. Not recommended without prior trekking experience.",
+    overview:
+      "Widely regarded as one of the most physically demanding of the five Kailash journeys — a steep, high-altitude trek to a natural Shivalingam. Not recommended without prior trekking experience.",
 
-    route:"Jaon → Singhad (medical check) → Kali Ghati → Bhim Dwar → Parvati Bagh → Shrikhand peak"
+    route:
+      "Jaon → Singhad → Kali Ghati → Bhim Dwar → Parvati Bagh → Shrikhand peak"
+
   },
 
-  mansarovar:{
+
+  mansarovar: {
+
     name:"Mount Kailash",
+
     alt:"Kailash Mansarovar",
-    location:"Ngari, Tibet Autonomous Region, China",
-    altitude:"6,638 m / 21,778 ft",
-    difficulty:"Very High",
-    duration:"21–25 days (full yatra)",
-    season:"May – September",
-    cost:"₹1.74L – ₹3.5L (approx.)",
-    permit:"MEA e-permit + Chinese visa + Tibet Travel Permit",
+
+    location:
+      "Ngari, Tibet Autonomous Region, China",
+
+    altitude:
+      "6,638 m / 21,778 ft",
+
+    difficulty:
+      "Very High",
+
+    duration:
+      "21–25 days (full yatra)",
+
+    season:
+      "May – September",
+
+    cost:
+      "₹1.74L – ₹3.5L (approx.)",
+
+    permit:
+      "Travel permits and visa requirements apply; verify current official requirements",
+
     status:"SEASONAL",
 
-    image:"images/388b155f-bb32-4cc2-ab13-f77765494af4.webp",
+    image:
+      "388b155f-bb32-4cc2-ab13-f77765494af4.webp",
 
-    overview:"The most sacred of the five, believed to be the eternal abode of Lord Shiva. Climbing the summit is prohibited; pilgrims instead complete a 52 km circumambulation (Kora) around the base.",
+    overview:
+      "The most sacred of the five, traditionally regarded as the abode of Lord Shiva. Climbing the summit is prohibited; pilgrims instead complete a circumambulation around the base.",
 
-    route:"Delhi → Dharchula/Kathmandu → Lipulekh or Nathu La / Kyirong border → Darchen → Kora (Dirapuk → Dolma La → Zuthulphuk)"
+    route:
+      "Delhi → Dharchula/Kathmandu → border route → Darchen → Kora around Mount Kailash"
+
   }
 
 };
@@ -665,13 +950,20 @@ const kailashData = {
    PAN + ZOOM
 ========================================================= */
 
-const hero = document.getElementById("heroPan");
-const panLayer = document.getElementById("panLayer");
-const titleOverlay = document.getElementById("titleOverlay");
+const hero =
+  document.getElementById("heroPan");
+
+const panLayer =
+  document.getElementById("panLayer");
+
+const titleOverlay =
+  document.getElementById("titleOverlay");
+
 
 let scale = 1;
-let minScale = 1;
-let maxScale = 4;
+
+const minScale = 1;
+const maxScale = 4;
 
 let posX = 0;
 let posY = 0;
@@ -688,7 +980,7 @@ let fadeTimeout = null;
 let dragMoved = false;
 
 
-/* APPLY TRANSFORM */
+/* ================= TRANSFORM ================= */
 
 function applyTransform(){
 
@@ -698,7 +990,7 @@ function applyTransform(){
 }
 
 
-/* TITLE FADE */
+/* ================= TITLE ================= */
 
 function fadeTitle(hide){
 
@@ -710,481 +1002,506 @@ function fadeTitle(hide){
 
   }else{
 
-    fadeTimeout=setTimeout(()=>{
+    fadeTimeout =
+      setTimeout(()=>{
 
-      titleOverlay.classList.remove("faded");
+        titleOverlay.classList.remove("faded");
 
-    },500);
+      },400);
 
   }
 
 }
 
 
-/* CLAMP */
+/* ================= CLAMP ================= */
 
-function clamp(val,min,max){
+function clamp(value,min,max){
 
-  return Math.max(min,Math.min(max,val));
+  return Math.max(
+    min,
+    Math.min(max,value)
+  );
 
 }
 
 
-/* =========================================================
-   TOUCH
-========================================================= */
+/* ================= TOUCH START ================= */
 
-hero.addEventListener("touchstart",(e)=>{
+hero.addEventListener(
+  "touchstart",
+  function(e){
 
-  dragMoved=false;
+    dragMoved=false;
 
-  if(e.touches.length===1){
+    if(e.touches.length===1){
 
-    isPointerDown=true;
+      isPointerDown=true;
 
-    startX=e.touches[0].clientX-posX;
-    startY=e.touches[0].clientY-posY;
+      startX =
+        e.touches[0].clientX-posX;
 
-  }
+      startY =
+        e.touches[0].clientY-posY;
 
-  else if(e.touches.length===2){
+    }
 
-    isPointerDown=false;
+    else if(e.touches.length===2){
 
-    lastTouchDist=getTouchDist(e.touches);
+      isPointerDown=false;
 
-  }
+      lastTouchDist =
+        getTouchDist(e.touches);
 
-},{passive:true});
+    }
+
+  },
+  {passive:true}
+);
 
 
-hero.addEventListener("touchmove",(e)=>{
+/* ================= TOUCH MOVE ================= */
 
-  if(e.touches.length===1 && isPointerDown){
+hero.addEventListener(
+  "touchmove",
+  function(e){
 
-    dragMoved=true;
+    if(
+      e.touches.length===1 &&
+      isPointerDown
+    ){
 
-    fadeTitle(true);
+      dragMoved=true;
 
-    posX=e.touches[0].clientX-startX;
-    posY=e.touches[0].clientY-startY;
+      fadeTitle(true);
 
-    applyTransform();
+      posX =
+        e.touches[0].clientX-startX;
 
-  }
-
-  else if(e.touches.length===2){
-
-    dragMoved=true;
-
-    fadeTitle(true);
-
-    const dist=getTouchDist(e.touches);
-
-    if(lastTouchDist){
-
-      const delta=(dist-lastTouchDist)*0.01;
-
-      scale=clamp(
-        scale+delta,
-        minScale,
-        maxScale
-      );
+      posY =
+        e.touches[0].clientY-startY;
 
       applyTransform();
 
     }
 
-    lastTouchDist=dist;
+    else if(e.touches.length===2){
+
+      dragMoved=true;
+
+      fadeTitle(true);
+
+      const dist =
+        getTouchDist(e);
+
+      if(lastTouchDist){
+
+        const delta =
+          (dist-lastTouchDist)*.01;
+
+        scale =
+          clamp(
+            scale+delta,
+            minScale,
+            maxScale
+          );
+
+        applyTransform();
+
+      }
+
+      lastTouchDist=dist;
+
+    }
+
+  },
+  {passive:true}
+);
+
+
+/* ================= TOUCH END ================= */
+
+hero.addEventListener(
+  "touchend",
+  function(){
+
+    isPointerDown=false;
+
+    lastTouchDist=null;
+
+    fadeTitle(false);
 
   }
+);
 
-},{passive:true});
 
-
-hero.addEventListener("touchend",()=>{
-
-  isPointerDown=false;
-
-  lastTouchDist=null;
-
-  fadeTitle(false);
-
-});
-
+/* ================= TOUCH DISTANCE ================= */
 
 function getTouchDist(touches){
 
-  const dx=
-    touches[0].clientX-touches[1].clientX;
+  const dx =
+    touches[0].clientX-
+    touches[1].clientX;
 
-  const dy=
-    touches[0].clientY-touches[1].clientY;
+  const dy =
+    touches[0].clientY-
+    touches[1].clientY;
 
-  return Math.sqrt(dx*dx+dy*dy);
+  return Math.sqrt(
+    dx*dx+dy*dy
+  );
 
 }
 
 
 /* =========================================================
-   MOUSE
+   DESKTOP MOUSE
 ========================================================= */
 
-hero.addEventListener("mousedown",(e)=>{
+hero.addEventListener(
+  "mousedown",
+  function(e){
 
-  isPointerDown=true;
+    isPointerDown=true;
 
-  dragMoved=false;
+    dragMoved=false;
 
-  startX=e.clientX-posX;
-  startY=e.clientY-posY;
+    startX=e.clientX-posX;
 
-});
+    startY=e.clientY-posY;
+
+  }
+);
 
 
-hero.addEventListener("mousemove",(e)=>{
+hero.addEventListener(
+  "mousemove",
+  function(e){
 
-  if(isPointerDown){
+    if(!isPointerDown)return;
 
     dragMoved=true;
 
     fadeTitle(true);
 
     posX=e.clientX-startX;
+
     posY=e.clientY-startY;
 
     applyTransform();
 
   }
+);
 
-});
 
+window.addEventListener(
+  "mouseup",
+  function(){
 
-window.addEventListener("mouseup",()=>{
+    if(isPointerDown){
 
-  if(isPointerDown){
-
-    fadeTitle(false);
-
-  }
-
-  isPointerDown=false;
-
-});
-
-
-/* =========================================================
-   MOUSE WHEEL ZOOM
-========================================================= */
-
-hero.addEventListener("wheel",(e)=>{
-
-  e.preventDefault();
-
-  fadeTitle(true);
-
-  const delta=-e.deltaY*.001;
-
-  scale=clamp(
-    scale+delta,
-    minScale,
-    maxScale
-  );
-
-  applyTransform();
-
-  fadeTitle(false);
-
-},{passive:false});
-
-
-/* =========================================================
-   MARKERS
-========================================================= */
-
-document
-.getElementById("m-kinnaur")
-.addEventListener("click",()=>{
-
-  if(!dragMoved){
-
-    openModal(kailashData.kinnaur);
-
-  }
-
-});
-
-
-document
-.getElementById("m-manimahesh")
-.addEventListener("click",()=>{
-
-  if(!dragMoved){
-
-    openModal(kailashData.manimahesh);
-
-  }
-
-});
-
-
-document
-.getElementById("m-adi")
-.addEventListener("click",()=>{
-
-  if(!dragMoved){
-
-    openModal(kailashData.adi);
-
-  }
-
-});
-
-
-document
-.getElementById("m-shrikhand")
-.addEventListener("click",()=>{
-
-  if(!dragMoved){
-
-    openModal(kailashData.shrikhand);
-
-  }
-
-});
-
-
-document
-.getElementById("m-mansarovar")
-.addEventListener("click",()=>{
-
-  if(!dragMoved){
-
-    openModal(kailashData.mansarovar);
-
-  }
-
-});
-
-
-/* =========================================================
-   CARDS
-========================================================= */
-
-const grid=document.getElementById("cardGrid");
-
-Object.values(kailashData).forEach((k)=>{
-
-  const card=document.createElement("div");
-
-  card.className="tilt-card";
-
-  card.innerHTML=`
-
-    <img
-      src="${k.image}"
-      alt="${k.name}"
-    >
-
-    <div class="overlay">
-
-      <h3>${k.name}</h3>
-
-      <div class="loc">
-        ${k.location.split(",")[0]}
-      </div>
-
-    </div>
-
-  `;
-
-  card.addEventListener("click",()=>{
-
-    openModal(k);
-
-  });
-
-  grid.appendChild(card);
-
-});
-
-
-/* =========================================================
-   MODAL
-========================================================= */
-
-function openModal(k){
-
-  document.getElementById("modalHero")
-  .style.backgroundImage=
-    `url("${k.image}")`;
-
-
-  document.getElementById("modalBody")
-  .innerHTML=`
-
-    <span class="status-badge">
-      ${k.status}
-    </span>
-
-    <h2>
-      ${k.name}
-    </h2>
-
-    <div class="modal-loc">
-      ${k.alt} • ${k.location}
-    </div>
-
-
-    <div class="quick-facts">
-
-      <div>
-        <div class="fact-label">
-          Altitude
-        </div>
-
-        <div class="fact-value">
-          ${k.altitude}
-        </div>
-      </div>
-
-
-      <div>
-        <div class="fact-label">
-          Difficulty
-        </div>
-
-        <div class="fact-value">
-          ${k.difficulty}
-        </div>
-      </div>
-
-
-      <div>
-        <div class="fact-label">
-          Duration
-        </div>
-
-        <div class="fact-value">
-          ${k.duration}
-        </div>
-      </div>
-            <div>
-        <div class="fact-label">
-          Best Season
-        </div>
-
-        <div class="fact-value">
-          ${k.season}
-        </div>
-      </div>
-
-
-      <div>
-        <div class="fact-label">
-          Approx. Cost
-        </div>
-
-        <div class="fact-value">
-          ${k.cost}
-        </div>
-      </div>
-
-
-      <div>
-        <div class="fact-label">
-          Permit
-        </div>
-
-        <div class="fact-value">
-          ${k.permit}
-        </div>
-      </div>
-
-
-    <h4>
-      Overview
-    </h4>
-
-    <p>
-      ${k.overview}
-    </p>
-
-
-    <h4>
-      Route
-    </h4>
-
-    <p>
-      ${k.route}
-    </p>
-
-
-    <div class="disclaimer">
-
-      Costs and dates are approximate/currently reported figures —
-      always verify against the official yatra portal before travel.
-
-    </div>
-
-  `;
-
-
-  document
-    .getElementById("modalOverlay")
-    .classList.add("active");
-
-}
-
-
-/* =========================================================
-   CLOSE MODAL
-========================================================= */
-
-function closeModal(){
-
-  document
-    .getElementById("modalOverlay")
-    .classList.remove("active");
-
-}
-
-
-/* =========================================================
-   CLICK OUTSIDE MODAL TO CLOSE
-========================================================= */
-
-document
-  .getElementById("modalOverlay")
-  .addEventListener("click",(e)=>{
-
-    if(e.target.id==="modalOverlay"){
-
-      closeModal();
+      fadeTitle(false);
 
     }
 
-  });
+    isPointerDown=false;
+
+  }
+);
+
+
+/* ================= WHEEL ZOOM ================= */
+
+hero.addEventListener(
+  "wheel",
+  function(e){
+
+    e.preventDefault();
+
+    fadeTitle(true);
+
+    const delta =
+      -e.deltaY*.001;
+
+    scale =
+      clamp(
+        scale+delta,
+        minScale,
+        maxScale
+      );
+
+    applyTransform();
+
+    fadeTitle(false);
+
+  },
+  {passive:false}
+);
 
 
 /* =========================================================
-   ESC KEY TO CLOSE
-========================================================= */
+   MARKER EVENTS
+========*/
+        "m-kinnaur": kailashData.kinnaur,
+      "m-manimahesh": kailashData.manimahesh,
+      "m-adi": kailashData.adi,
+      "m-shrikhand": kailashData.shrikhand,
+      "m-mansarovar": kailashData.mansarovar
+    };
 
-document.addEventListener("keydown",(e)=>{
+    Object.keys(markerMap).forEach(function(id) {
+      document.getElementById(id).addEventListener("click", function(e) {
+        e.stopPropagation();
 
-  if(e.key==="Escape"){
+        if (!dragMoved) {
+          openModal(markerMap[id]);
+        }
 
-    closeModal();
+        dragMoved = false;
+      });
+    });
 
-  }
 
-});
+    /* ============================================================
+       CARD GRID
+       ============================================================ */
 
-</script>
+    const grid = document.getElementById("cardGrid");
+
+    Object.values(kailashData).forEach(function(k) {
+
+      const card = document.createElement("div");
+
+      card.className = "tilt-card";
+
+      card.innerHTML = `
+        <img src="${k.image}" alt="${k.name}">
+        <div class="overlay">
+          <h3>${k.name}</h3>
+          <div class="loc">${k.location.split(",")[0]}</div>
+        </div>
+      `;
+
+      card.addEventListener("click", function() {
+        openModal(k);
+      });
+
+      grid.appendChild(card);
+
+    });
+
+
+    /* ============================================================
+       MODAL
+       ============================================================ */
+
+    function openModal(k) {
+
+      const modalOverlay = document.getElementById("modalOverlay");
+      const modalHero = document.getElementById("modalHero");
+      const modalBody = document.getElementById("modalBody");
+
+      modalHero.style.backgroundImage =
+        `url("${k.image}")`;
+
+      modalBody.innerHTML = `
+
+        <span class="status-badge">
+          ${k.status}
+        </span>
+
+        <h2>
+          ${k.name}
+        </h2>
+
+        <div class="modal-loc">
+          ${k.alt} • ${k.location}
+        </div>
+
+
+        <div class="quick-facts">
+
+          <div>
+            <div class="fact-label">
+              Altitude
+            </div>
+
+            <div class="fact-value">
+              ${k.altitude}
+            </div>
+          </div>
+
+
+          <div>
+            <div class="fact-label">
+              Difficulty
+            </div>
+
+            <div class="fact-value">
+              ${k.difficulty}
+            </div>
+          </div>
+
+
+          <div>
+            <div class="fact-label">
+              Duration
+            </div>
+
+            <div class="fact-value">
+              ${k.duration}
+            </div>
+          </div>
+
+
+          <div>
+            <div class="fact-label">
+              Best Season
+            </div>
+
+            <div class="fact-value">
+              ${k.season}
+            </div>
+          </div>
+
+
+          <div>
+            <div class="fact-label">
+              Approx. Cost
+            </div>
+
+            <div class="fact-value">
+              ${k.cost}
+            </div>
+          </div>
+
+
+          <div>
+            <div class="fact-label">
+              Permit
+            </div>
+
+            <div class="fact-value">
+              ${k.permit}
+            </div>
+          </div>
+
+        </div>
+
+
+        <h4>
+          Overview
+        </h4>
+
+        <p>
+          ${k.overview}
+        </p>
+
+
+        <h4>
+          Route
+        </h4>
+
+        <p>
+          ${k.route}
+        </p>
+
+
+        <div class="disclaimer">
+          Costs and dates are approximate/currently reported figures —
+          always verify against the official yatra portal before travel.
+        </div>
+
+      `;
+
+      modalOverlay.classList.add("active");
+
+      document.body.style.overflow = "hidden";
+    }
+
+
+    /* ============================================================
+       CLOSE MODAL
+       ============================================================ */
+
+    function closeModal() {
+
+      const modalOverlay =
+        document.getElementById("modalOverlay");
+
+      modalOverlay.classList.remove("active");
+
+      document.body.style.overflow = "";
+    }
+
+
+    /* Close when clicking outside modal */
+
+    document
+      .getElementById("modalOverlay")
+      .addEventListener("click", function(e) {
+
+        if (e.target === this) {
+          closeModal();
+        }
+
+      });
+
+
+    /* ============================================================
+       ESC KEY
+       ============================================================ */
+
+    document.addEventListener("keydown", function(e) {
+
+      if (e.key === "Escape") {
+        closeModal();
+      }
+
+    });
+
+
+    /* ============================================================
+       RESET PANORAMA
+       ============================================================ */
+
+    function resetPanorama() {
+
+      scale = 1;
+      posX = 0;
+      posY = 0;
+
+      applyTransform();
+
+      fadeTitle(false);
+    }
+
+
+    /* ============================================================
+       PREVENT IMAGE DRAGGING
+       ============================================================ */
+
+    document.querySelectorAll("img").forEach(function(img) {
+
+      img.addEventListener("dragstart", function(e) {
+        e.preventDefault();
+      });
+
+    });
+
+
+    /* ============================================================
+       INITIALIZE
+       ============================================================ */
+
+    applyTransform();
+
+    setTimeout(function() {
+      titleOverlay.classList.remove("faded");
+    }, 300);
+
+
+  </script>
 
 </body>
 </html>
-
-
-      
