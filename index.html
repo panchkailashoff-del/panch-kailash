@@ -733,775 +733,693 @@ footer{
 
 <script>
 
-/* =========================================================
-   PANCH KAILASH DATA
-========================================================= */
-
-const kailashData = {
-
-  kinnaur: {
-
-    name:"Kinnaur Kailash",
-
-    alt:"Kinner Kailash",
-
-    location:
-      "Kinnaur District, Himachal Pradesh, India",
-
-    altitude:
-      "Summit ~6,050 m / Shivling ~4,800 m",
-
-    difficulty:
-      "High to Expedition-level",
-
-    duration:
-      "3–5 days (yatra) / 6–8 days (Parikrama)",
-
-    season:
-      "July – August (Shravan month)",
-
-    cost:
-      "Not officially published; estimate ₹15,000 – ₹35,000",
-
-    permit:
-      "Adventure Activity Rules 2017 permit + police registration",
-
-    status:"SEASONAL",
-
-    image:
-      "eb384ae0-c0bb-4def-b511-190079473d48.webp",
-
-    overview:
-      "Home to a towering natural rock Shivling that appears to change color through the day. One of the more remote and demanding treks among the five, with limited rescue infrastructure.",
-
-    route:
-      "Reckong Peo → Kalpa → Powari → Tangling → Maling Khata → Shivling darshan point"
-
-  },
-
-
-  manimahesh: {
-
-    name:"Manimahesh Kailash",
-
-    alt:"Chamba Kailash",
-
-    location:
-      "Chamba District (Bharmour), Himachal Pradesh, India",
-
-    altitude:
-      "5,653 m / 18,547 ft",
-
-    difficulty:
-      "Moderate (most accessible of the five)",
-
-    duration:
-      "2–3 days (core yatra)",
-
-    season:
-      "August – September (Janmashtami to Radha Ashtami)",
-
-    cost:
-      "₹3,000 – ₹22,000 (approx.)",
-
-    permit:
-      "Mandatory online registration; verify current fee and portal before travel",
-
-    status:"SEASONAL",
-
-    image:
-      "panorama-bfce809f-706a-4f54-af98-49e4d6cae831.png",
-
-    overview:
-      "The most accessible of the five, suitable for a wider range of pilgrims. The trek ends at the glacial Manimahesh Lake, with the Kailash peak reflected in its waters.",
-
-    route:
-      "Bharmour → Hadsar → Dhancho → Gauri Kund / Shiva Krotri → Manimahesh Lake"
-
-  },
-
-
-  adi: {
-
-    name:"Adi Kailash",
-
-    alt:"Chhota Kailash",
-
-    location:
-      "Pithoragarh District, Uttarakhand, India",
-
-    altitude:
-      "~5,945 m (also reported as 6,191 m)",
-
-    difficulty:
-      "Moderate",
-
-    duration:
-      "6–8 days",
-
-    season:
-      "May – October",
-
-    cost:
-      "₹25,000 – ₹1,50,000 (approx.)",
-
-    permit:
-      "Inner Line Permit — verify current official requirements",
-
-    status:"SEASONAL",
-
-    image:
-      "911f1828-7225-4606-8fd5-f950170646ab.webp",
-
-    overview:
-      "Known as 'Chhota Kailash', this peak near the Indo-Tibet border resembles Mount Kailash in shape. The journey also covers the mystical Om Parvat, famous for its natural 'ॐ' snow pattern.",
-
-    route:
-      "Dharchula → Gunji → Kuti Village → Jolingkong → Parvati Sarovar → Gauri Kund → Om Parvat side trip"
-
-  },
-
-
-  shrikhand: {
-
-    name:"Shrikhand Mahadev",
-
-    alt:"Shikhar Kailash",
-
-    location:
-      "Kullu District, Himachal Pradesh, India",
-
-    altitude:
-      "~17,000 – 18,570 ft",
-
-    difficulty:
-      "Very High (toughest of the five)",
-
-    duration:
-      "4–5 days",
-
-    season:
-      "July only (official window varies)",
-
-    cost:
-      "₹5,000 – ₹15,000 (approx., DIY)",
-
-    permit:
-      "Mandatory registration + medical requirements; verify current rules",
-
-    status:"CHECK BEFORE TRAVEL",
-
-    image:
-      "1aebea2f-ed66-4843-80ef-f381f65cfe50.webp",
-
-    overview:
-      "Widely regarded as one of the most physically demanding of the five Kailash journeys — a steep, high-altitude trek to a natural Shivalingam. Not recommended without prior trekking experience.",
-
-    route:
-      "Jaon → Singhad → Kali Ghati → Bhim Dwar → Parvati Bagh → Shrikhand peak"
-
-  },
-
-
-  mansarovar: {
-
-    name:"Mount Kailash",
-
-    alt:"Kailash Mansarovar",
-
-    location:
-      "Ngari, Tibet Autonomous Region, China",
-
-    altitude:
-      "6,638 m / 21,778 ft",
-
-    difficulty:
-      "Very High",
-
-    duration:
-      "21–25 days (full yatra)",
-
-    season:
-      "May – September",
-
-    cost:
-      "₹1.74L – ₹3.5L (approx.)",
-
-    permit:
-      "Travel permits and visa requirements apply; verify current official requirements",
-
-    status:"SEASONAL",
-
-    image:
-      "388b155f-bb32-4cc2-ab13-f77765494af4.webp",
-
-    overview:
-      "The most sacred of the five, traditionally regarded as the abode of Lord Shiva. Climbing the summit is prohibited; pilgrims instead complete a circumambulation around the base.",
-
-    route:
-      "Delhi → Dharchula/Kathmandu → border route → Darchen → Kora around Mount Kailash"
-
-  }
-
-};
-
-
-/* =========================================================
-   PAN + ZOOM
-========================================================= */
-
-const hero =
-  document.getElementById("heroPan");
-
-const panLayer =
-  document.getElementById("panLayer");
-
-const titleOverlay =
-  document.getElementById("titleOverlay");
-
+/* ============================================================
+   PANCH KAILASH — INTERACTIVE PANORAMA ENGINE
+   ============================================================ */
+
+const hero = document.getElementById("heroPan");
+const panLayer = document.getElementById("panLayer");
+const heroImg = document.getElementById("heroImg");
+const titleOverlay = document.getElementById("titleOverlay");
 
 let scale = 1;
-
-const minScale = 1;
-const maxScale = 4;
+const MIN_SCALE = 1;
+const MAX_SCALE = 4;
 
 let posX = 0;
 let posY = 0;
 
-let isPointerDown = false;
+let dragging = false;
+let moved = false;
 
 let startX = 0;
 let startY = 0;
+let startPosX = 0;
+let startPosY = 0;
 
-let lastTouchDist = null;
+let pointers = new Map();
+let pinchStartDistance = 0;
+let pinchStartScale = 1;
 
-let fadeTimeout = null;
-
-let dragMoved = false;
+let fadeTimer = null;
 
 
-/* ================= TRANSFORM ================= */
+/* ============================================================
+   TRANSFORM
+   ============================================================ */
 
-function applyTransform(){
+function applyTransform() {
 
   panLayer.style.transform =
-    `translate(${posX}px,${posY}px) scale(${scale})`;
+    `translate3d(${posX}px, ${posY}px, 0) scale(${scale})`;
 
 }
 
 
-/* ================= TITLE ================= */
+/* ============================================================
+   CLAMP
+   ============================================================ */
 
-function fadeTitle(hide){
+function clamp(value, min, max) {
+  return Math.max(min, Math.min(max, value));
+}
 
-  clearTimeout(fadeTimeout);
 
-  if(hide){
+/* ============================================================
+   GET PAN LIMITS
+   ============================================================ */
 
-    titleOverlay.classList.add("faded");
+function getPanLimits() {
 
-  }else{
+  const w = hero.clientWidth;
+  const h = hero.clientHeight;
 
-    fadeTimeout =
-      setTimeout(()=>{
+  /*
+    Panorama image is 220% wide.
+    We allow movement according to zoom level.
+  */
 
-        titleOverlay.classList.remove("faded");
+  const imageWidth = w * 2.2 * scale;
+  const imageHeight = heroImg.offsetHeight * scale;
 
-      },400);
+  let maxX = Math.max(0, (imageWidth - w) / 2);
+  let maxY = Math.max(0, (imageHeight - h) / 2);
 
-  }
+  /*
+    Extra movement is allowed because the image itself
+    starts centered inside the panorama layer.
+  */
+
+  maxX += w * 0.6 * scale;
+  maxY += h * 0.15 * scale;
+
+  return {
+    x: maxX,
+    y: maxY
+  };
 
 }
 
 
-/* ================= CLAMP ================= */
+/* ============================================================
+   KEEP IMAGE INSIDE VIEW
+   ============================================================ */
 
-function clamp(value,min,max){
+function constrainPan() {
 
-  return Math.max(
-    min,
-    Math.min(max,value)
-  );
+  const limits = getPanLimits();
 
-}
+  posX = clamp(posX, -limits.x, limits.x);
+  posY = clamp(posY, -limits.y, limits.y);
 
-
-/* ================= TOUCH START ================= */
-
-hero.addEventListener(
-  "touchstart",
-  function(e){
-
-    dragMoved=false;
-
-    if(e.touches.length===1){
-
-      isPointerDown=true;
-
-      startX =
-        e.touches[0].clientX-posX;
-
-      startY =
-        e.touches[0].clientY-posY;
-
-    }
-
-    else if(e.touches.length===2){
-
-      isPointerDown=false;
-
-      lastTouchDist =
-        getTouchDist(e.touches);
-
-    }
-
-  },
-  {passive:true}
-);
-
-
-/* ================= TOUCH MOVE ================= */
-
-hero.addEventListener(
-  "touchmove",
-  function(e){
-
-    if(
-      e.touches.length===1 &&
-      isPointerDown
-    ){
-
-      dragMoved=true;
-
-      fadeTitle(true);
-
-      posX =
-        e.touches[0].clientX-startX;
-
-      posY =
-        e.touches[0].clientY-startY;
-
-      applyTransform();
-
-    }
-
-    else if(e.touches.length===2){
-
-      dragMoved=true;
-
-      fadeTitle(true);
-
-      const dist =
-        getTouchDist(e);
-
-      if(lastTouchDist){
-
-        const delta =
-          (dist-lastTouchDist)*.01;
-
-        scale =
-          clamp(
-            scale+delta,
-            minScale,
-            maxScale
-          );
-
-        applyTransform();
-
-      }
-
-      lastTouchDist=dist;
-
-    }
-
-  },
-  {passive:true}
-);
-
-
-/* ================= TOUCH END ================= */
-
-hero.addEventListener(
-  "touchend",
-  function(){
-
-    isPointerDown=false;
-
-    lastTouchDist=null;
-
-    fadeTitle(false);
-
-  }
-);
-
-
-/* ================= TOUCH DISTANCE ================= */
-
-function getTouchDist(touches){
-
-  const dx =
-    touches[0].clientX-
-    touches[1].clientX;
-
-  const dy =
-    touches[0].clientY-
-    touches[1].clientY;
-
-  return Math.sqrt(
-    dx*dx+dy*dy
-  );
+  applyTransform();
 
 }
 
 
-/* =========================================================
-   DESKTOP MOUSE
-========================================================= */
+/* ============================================================
+   TITLE FADE
+   ============================================================ */
 
-hero.addEventListener(
-  "mousedown",
-  function(e){
+function hideTitle() {
 
-    isPointerDown=true;
+  clearTimeout(fadeTimer);
 
-    dragMoved=false;
+  titleOverlay.classList.add("faded");
 
-    startX=e.clientX-posX;
+}
 
-    startY=e.clientY-posY;
+
+function showTitle() {
+
+  clearTimeout(fadeTimer);
+
+  fadeTimer = setTimeout(function() {
+
+    titleOverlay.classList.remove("faded");
+
+  }, 500);
+
+}
+
+
+/* ============================================================
+   DISTANCE BETWEEN TWO FINGERS
+   ============================================================ */
+
+function getDistance(p1, p2) {
+
+  const dx = p1.clientX - p2.clientX;
+  const dy = p1.clientY - p2.clientY;
+
+  return Math.sqrt(dx * dx + dy * dy);
+
+}
+
+
+/* ============================================================
+   POINTER DOWN
+   ============================================================ */
+
+hero.addEventListener("pointerdown", function(e) {
+
+  /*
+    If user touches a marker, don't start panorama drag.
+  */
+
+  if (e.target.closest(".marker")) {
+    return;
+  }
+
+  hero.setPointerCapture(e.pointerId);
+
+  pointers.set(e.pointerId, e);
+
+  moved = false;
+
+  if (pointers.size === 1) {
+
+    dragging = true;
+
+    startX = e.clientX;
+    startY = e.clientY;
+
+    startPosX = posX;
+    startPosY = posY;
 
   }
-);
 
 
-hero.addEventListener(
-  "mousemove",
-  function(e){
+  /* ==========================================================
+     PINCH START
+     ========================================================== */
 
-    if(!isPointerDown)return;
+  if (pointers.size === 2) {
 
-    dragMoved=true;
+    dragging = false;
 
-    fadeTitle(true);
+    const values = Array.from(pointers.values());
 
-    posX=e.clientX-startX;
+    pinchStartDistance =
+      getDistance(values[0], values[1]);
 
-    posY=e.clientY-startY;
+    pinchStartScale = scale;
 
-    applyTransform();
+    hideTitle();
 
   }
-);
+
+});
 
 
-window.addEventListener(
-  "mouseup",
-  function(){
+/* ============================================================
+   POINTER MOVE
+   ============================================================ */
 
-    if(isPointerDown){
+hero.addEventListener("pointermove", function(e) {
 
-      fadeTitle(false);
+  if (!pointers.has(e.pointerId)) {
+    return;
+  }
+
+  pointers.set(e.pointerId, e);
+
+
+  /* ==========================================================
+     TWO FINGER PINCH ZOOM
+     ========================================================== */
+
+  if (pointers.size === 2) {
+
+    const values = Array.from(pointers.values());
+
+    const distance =
+      getDistance(values[0], values[1]);
+
+    if (pinchStartDistance > 0) {
+
+      const zoom =
+        distance / pinchStartDistance;
+
+      scale =
+        clamp(
+          pinchStartScale * zoom,
+          MIN_SCALE,
+          MAX_SCALE
+        );
+
+      constrainPan();
+
+      hideTitle();
 
     }
 
-    isPointerDown=false;
+    return;
+  }
+
+
+  /* ==========================================================
+     ONE FINGER DRAG
+     ========================================================== */
+
+  if (pointers.size === 1 && dragging) {
+
+    const dx = e.clientX - startX;
+    const dy = e.clientY - startY;
+
+    if (Math.abs(dx) > 5 || Math.abs(dy) > 5) {
+      moved = true;
+      hideTitle();
+    }
+
+    posX = startPosX + dx;
+    posY = startPosY + dy;
+
+    constrainPan();
 
   }
-);
+
+});
 
 
-/* ================= WHEEL ZOOM ================= */
+/* ============================================================
+   POINTER UP
+   ============================================================ */
+
+hero.addEventListener("pointerup", function(e) {
+
+  pointers.delete(e.pointerId);
+
+  if (pointers.size === 0) {
+
+    dragging = false;
+
+    showTitle();
+
+  }
+
+
+  if (pointers.size === 1) {
+
+    const remaining =
+      Array.from(pointers.values())[0];
+
+    startX = remaining.clientX;
+    startY = remaining.clientY;
+
+    startPosX = posX;
+    startPosY = posY;
+
+    dragging = true;
+
+  }
+
+});
+
+
+/* ============================================================
+   POINTER CANCEL
+   ============================================================ */
+
+hero.addEventListener("pointercancel", function(e) {
+
+  pointers.delete(e.pointerId);
+
+  if (pointers.size === 0) {
+
+    dragging = false;
+
+    showTitle();
+
+  }
+
+});
+
+
+/* ============================================================
+   MOUSE WHEEL ZOOM
+   ============================================================ */
 
 hero.addEventListener(
   "wheel",
-  function(e){
+  function(e) {
 
     e.preventDefault();
 
-    fadeTitle(true);
+    hideTitle();
 
-    const delta =
-      -e.deltaY*.001;
+    const zoomAmount =
+      e.deltaY > 0 ? -0.15 : 0.15;
 
     scale =
       clamp(
-        scale+delta,
-        minScale,
-        maxScale
+        scale + zoomAmount,
+        MIN_SCALE,
+        MAX_SCALE
       );
 
-    applyTransform();
+    constrainPan();
 
-    fadeTitle(false);
+    showTitle();
 
   },
-  {passive:false}
+  { passive: false }
 );
 
 
-/* =========================================================
-   MARKER EVENTS
-========*/
-        "m-kinnaur": kailashData.kinnaur,
-      "m-manimahesh": kailashData.manimahesh,
-      "m-adi": kailashData.adi,
-      "m-shrikhand": kailashData.shrikhand,
-      "m-mansarovar": kailashData.mansarovar
-    };
+/* ============================================================
+   MARKER DATA
+   ============================================================ */
 
-    Object.keys(markerMap).forEach(function(id) {
-      document.getElementById(id).addEventListener("click", function(e) {
-        e.stopPropagation();
+const markerMap = {
 
-        if (!dragMoved) {
-          openModal(markerMap[id]);
-        }
+  "m-kinnaur": kailashData.kinnaur,
 
-        dragMoved = false;
-      });
-    });
+  "m-manimahesh": kailashData.manimahesh,
+
+  "m-adi": kailashData.adi,
+
+  "m-shrikhand": kailashData.shrikhand,
+
+  "m-mansarovar": kailashData.mansarovar
+
+};
 
 
-    /* ============================================================
-       CARD GRID
-       ============================================================ */
+/* ============================================================
+   MARKER CLICK
+   ============================================================ */
 
-    const grid = document.getElementById("cardGrid");
+Object.keys(markerMap).forEach(function(id) {
 
-    Object.values(kailashData).forEach(function(k) {
+  const marker =
+    document.getElementById(id);
 
-      const card = document.createElement("div");
+  if (!marker) {
+    return;
+  }
 
-      card.className = "tilt-card";
+  marker.addEventListener("click", function(e) {
 
-      card.innerHTML = `
-        <img src="${k.image}" alt="${k.name}">
-        <div class="overlay">
-          <h3>${k.name}</h3>
-          <div class="loc">${k.location.split(",")[0]}</div>
-        </div>
-      `;
+    e.stopPropagation();
 
-      card.addEventListener("click", function() {
-        openModal(k);
-      });
+    /*
+      Open the correct Kailash information.
+    */
 
-      grid.appendChild(card);
+    openModal(markerMap[id]);
 
-    });
+  });
 
-
-    /* ============================================================
-       MODAL
-       ============================================================ */
-
-    function openModal(k) {
-
-      const modalOverlay = document.getElementById("modalOverlay");
-      const modalHero = document.getElementById("modalHero");
-      const modalBody = document.getElementById("modalBody");
-
-      modalHero.style.backgroundImage =
-        `url("${k.image}")`;
-
-      modalBody.innerHTML = `
-
-        <span class="status-badge">
-          ${k.status}
-        </span>
-
-        <h2>
-          ${k.name}
-        </h2>
-
-        <div class="modal-loc">
-          ${k.alt} • ${k.location}
-        </div>
+});
 
 
-        <div class="quick-facts">
+/* ============================================================
+   CARD GRID
+   ============================================================ */
 
-          <div>
-            <div class="fact-label">
-              Altitude
-            </div>
-
-            <div class="fact-value">
-              ${k.altitude}
-            </div>
-          </div>
+const grid =
+  document.getElementById("cardGrid");
 
 
-          <div>
-            <div class="fact-label">
-              Difficulty
-            </div>
+Object.values(kailashData).forEach(function(k) {
 
-            <div class="fact-value">
-              ${k.difficulty}
-            </div>
-          </div>
+  const card =
+    document.createElement("div");
 
+  card.className = "tilt-card";
 
-          <div>
-            <div class="fact-label">
-              Duration
-            </div>
+  card.innerHTML = `
 
-            <div class="fact-value">
-              ${k.duration}
-            </div>
-          </div>
+    <img
+      src="${k.image}"
+      alt="${k.name}"
+    >
 
+    <div class="overlay">
 
-          <div>
-            <div class="fact-label">
-              Best Season
-            </div>
+      <h3>
+        ${k.name}
+      </h3>
 
-            <div class="fact-value">
-              ${k.season}
-            </div>
-          </div>
+      <div class="loc">
+        ${k.location.split(",")[0]}
+      </div>
 
+    </div>
 
-          <div>
-            <div class="fact-label">
-              Approx. Cost
-            </div>
+  `;
 
-            <div class="fact-value">
-              ${k.cost}
-            </div>
-          </div>
+  card.addEventListener("click", function() {
+
+    openModal(k);
+
+  });
+
+  grid.appendChild(card);
+
+});
 
 
-          <div>
-            <div class="fact-label">
-              Permit
-            </div>
+/* ============================================================
+   OPEN MODAL
+   ============================================================ */
 
-            <div class="fact-value">
-              ${k.permit}
-            </div>
-          </div>
+function openModal(k) {
 
+  const modalOverlay =
+    document.getElementById("modalOverlay");
+
+  const modalHero =
+    document.getElementById("modalHero");
+
+  const modalBody =
+    document.getElementById("modalBody");
+
+
+  modalHero.style.backgroundImage =
+    `url("${k.image}")`;
+
+
+  modalBody.innerHTML = `
+
+    <span class="status-badge">
+      ${k.status}
+    </span>
+
+    <h2>
+      ${k.name}
+    </h2>
+
+    <div class="modal-loc">
+      ${k.alt} • ${k.location}
+    </div>
+
+
+    <div class="quick-facts">
+
+      <div>
+        <div class="fact-label">
+          Altitude
         </div>
 
-
-        <h4>
-          Overview
-        </h4>
-
-        <p>
-          ${k.overview}
-        </p>
+        <div class="fact-value">
+          ${k.altitude}
+        </div>
+      </div>
 
 
-        <h4>
-          Route
-        </h4>
-
-        <p>
-          ${k.route}
-        </p>
-
-
-        <div class="disclaimer">
-          Costs and dates are approximate/currently reported figures —
-          always verify against the official yatra portal before travel.
+      <div>
+        <div class="fact-label">
+          Difficulty
         </div>
 
-      `;
+        <div class="fact-value">
+          ${k.difficulty}
+        </div>
+      </div>
 
-      modalOverlay.classList.add("active");
 
-      document.body.style.overflow = "hidden";
+      <div>
+        <div class="fact-label">
+          Duration
+        </div>
+
+        <div class="fact-value">
+          ${k.duration}
+        </div>
+      </div>
+
+
+      <div>
+        <div class="fact-label">
+          Best Season
+        </div>
+
+        <div class="fact-value">
+          ${k.season}
+        </div>
+      </div>
+
+
+      <div>
+        <div class="fact-label">
+          Approx. Cost
+        </div>
+
+        <div class="fact-value">
+          ${k.cost}
+        </div>
+      </div>
+
+
+      <div>
+        <div class="fact-label">
+          Permit
+        </div>
+
+        <div class="fact-value">
+          ${k.permit}
+        </div>
+      </div>
+
+    </div>
+
+
+    <h4>
+      Overview
+    </h4>
+
+    <p>
+      ${k.overview}
+    </p>
+
+
+    <h4>
+      Route
+    </h4>
+
+    <p>
+      ${k.route}
+    </p>
+
+
+    <div class="disclaimer">
+      Costs and dates are approximate/currently reported
+      figures — always verify against the official
+      yatra portal before travel.
+    </div>
+
+  `;
+
+
+  modalOverlay.classList.add("active");
+
+  document.body.style.overflow = "hidden";
+
+}
+
+
+/* ============================================================
+   CLOSE MODAL
+   ============================================================ */
+
+function closeModal() {
+
+  const modalOverlay =
+    document.getElementById("modalOverlay");
+
+  modalOverlay.classList.remove("active");
+
+  document.body.style.overflow = "";
+
+}
+
+
+/* ============================================================
+   CLICK OUTSIDE MODAL
+   ============================================================ */
+
+document
+  .getElementById("modalOverlay")
+  .addEventListener("click", function(e) {
+
+    if (e.target === this) {
+
+      closeModal();
+
     }
 
-
-    /* ============================================================
-       CLOSE MODAL
-       ============================================================ */
-
-    function closeModal() {
-
-      const modalOverlay =
-        document.getElementById("modalOverlay");
-
-      modalOverlay.classList.remove("active");
-
-      document.body.style.overflow = "";
-    }
+  });
 
 
-    /* Close when clicking outside modal */
+/* ============================================================
+   ESC KEY
+   ============================================================ */
 
-    document
-      .getElementById("modalOverlay")
-      .addEventListener("click", function(e) {
+document.addEventListener("keydown", function(e) {
 
-        if (e.target === this) {
-          closeModal();
-        }
+  if (e.key === "Escape") {
 
-      });
+    closeModal();
 
+  }
 
-    /* ============================================================
-       ESC KEY
-       ============================================================ */
-
-    document.addEventListener("keydown", function(e) {
-
-      if (e.key === "Escape") {
-        closeModal();
-      }
-
-    });
+});
 
 
-    /* ============================================================
-       RESET PANORAMA
-       ============================================================ */
+/* ============================================================
+   PREVENT IMAGE DRAG
+   ============================================================ */
 
-    function resetPanorama() {
+document
+  .querySelectorAll("img")
+  .forEach(function(img) {
 
-      scale = 1;
-      posX = 0;
-      posY = 0;
-
-      applyTransform();
-
-      fadeTitle(false);
-    }
-
-
-    /* ============================================================
-       PREVENT IMAGE DRAGGING
-       ============================================================ */
-
-    document.querySelectorAll("img").forEach(function(img) {
-
-      img.addEventListener("dragstart", function(e) {
+    img.addEventListener(
+      "dragstart",
+      function(e) {
         e.preventDefault();
-      });
+      }
+    );
 
-    });
-
-
-    /* ============================================================
-       INITIALIZE
-       ============================================================ */
-
-    applyTransform();
-
-    setTimeout(function() {
-      titleOverlay.classList.remove("faded");
-    }, 300);
+  });
 
 
-  </script>
+/* ============================================================
+   IMAGE READY
+   ============================================================ */
+
+heroImg.addEventListener("load", function() {
+
+  scale = 1;
+
+  posX = 0;
+  posY = 0;
+
+  applyTransform();
+
+});
+
+
+/* ============================================================
+   RESIZE
+   ============================================================ */
+
+window.addEventListener("resize", function() {
+
+  constrainPan();
+
+});
+
+
+/* ============================================================
+   INITIAL
+   ============================================================ */
+
+applyTransform();
+
+</script>
 
 </body>
-</html>
+</html>                    
