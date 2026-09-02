@@ -1,4 +1,3 @@
-cat > /home/claude/panch-kailash/src/App.jsx << 'EOF'
 import { useState } from 'react'
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch'
 
