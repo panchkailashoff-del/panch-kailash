@@ -17,7 +17,7 @@ function App() {
         position: 'relative',
         width: '100%',
         minHeight: '100vh',
-        backgroundImage: 'url(/0db44277-5b9b-4617-9a13-0b1ba8492cb0.webp)',
+        backgroundImage: 'url(/panch-kailash/0db44277-5b9b-4617-9a13-0b1ba8492cb0.webp)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         fontFamily: 'Archivo, sans-serif',
