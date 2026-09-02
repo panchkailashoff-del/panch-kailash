@@ -2,54 +2,35 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-
-    <title>Panch Kailash — A Journey Across Five Sacred Peaks</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panch Kailash | A Journey Across Five Sacred Peaks</title>
     <meta
       name="description"
-      content="Panch Kailash is a cinematic guide to five sacred Himalayan peaks — Mount Kailash, Adi Kailash, Shrikhand Mahadev, Kinnaur Kailash, and Manimahesh Kailash — with travel information, routes, safety guidance, and trip planning tools."
+      content="Panch Kailash — an editorial guide to the five sacred Kailash peaks of the Himalayas: routes, permits, safety, current status and journey planning."
     />
-    <meta name="robots" content="index, follow" />
-    <meta name="author" content="Aakash Kainthla" />
-    <meta name="theme-color" content="#0b1520" />
-
-    <!-- Open Graph -->
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="Panch Kailash — A Journey Across Five Sacred Peaks" />
-    <meta
-      property="og:description"
-      content="Explore five sacred Himalayan peaks through cinematic visuals, verified travel information, and interactive planning tools."
-    />
-    <meta property="og:image" content="./0db44277-5b9b-4617-9a13-0b1ba8492cb0.webp" />
-    <meta property="og:site_name" content="Panch Kailash" />
-
-    <!-- Twitter / X Card -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Panch Kailash — A Journey Across Five Sacred Peaks" />
-    <meta
-      name="twitter:description"
-      content="A cinematic journey across five sacred Himalayan peaks — information, routes, safety, and planning tools."
-    />
-    <meta name="twitter:image" content="./0db44277-5b9b-4617-9a13-0b1ba8492cb0.webp" />
-
-    <!-- Favicon (update path once a favicon asset is added to the repo) -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-
-    <!-- Bold display font for headline typography -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;900&family=Cormorant+Garamond:wght@500&display=swap"
-      rel="stylesheet"
-    />
+    <meta name="theme-color" content="#0c0c0d" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 
     <!--
-      No canonical URL is set: the final GitHub Pages URL is not yet known.
-      Add <link rel="canonical" href="..."> once the production domain is confirmed.
+      GitHub Pages SPA deep-link fix.
+      GitHub Pages has no server-side rewrite, so a direct load of
+      /panch-kailash/kailash/mount-kailash returns a 404 page.
+      public/404.html redirects that request back here, encoding the
+      original path in a query string; this script decodes it and
+      restores the correct URL before React Router mounts.
+      (Standard "spa-github-pages" redirect trick.)
     -->
+    <script>
+      (function () {
+        var redirect = sessionStorage.redirect;
+        delete sessionStorage.redirect;
+        if (redirect && redirect !== location.href) {
+          history.replaceState(null, null, redirect);
+        }
+      })();
+    </script>
   </head>
   <body>
-    <noscript>Panch Kailash requires JavaScript to run.</noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
