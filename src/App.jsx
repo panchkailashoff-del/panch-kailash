@@ -1,4 +1,5 @@
-import { useRef, useState } from 'react'
+import { useState } from 'react'
+import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch'
 
 const PEAKS = [
   { id: 'manimahesh', name: 'Manimahesh Kailash', tag: 'Chamba Valley', top: '38%', left: '10%' },
@@ -10,36 +11,7 @@ const PEAKS = [
 
 function App() {
   const [selected, setSelected] = useState(null)
-  const [dragging, setDragging] = useState(false)
-  const [offset, setOffset] = useState(0)
-  const containerRef = useRef(null)
-  const imageRef = useRef(null)
-  const dragStartX = useRef(0)
-  const offsetStart = useRef(0)
-
-  const clamp = (value) => {
-    const containerWidth = containerRef.current?.offsetWidth || 0
-    const imageWidth = imageRef.current?.offsetWidth || 0
-    const minOffset = Math.min(0, containerWidth - imageWidth)
-    if (value > 0) return 0
-    if (value < minOffset) return minOffset
-    return value
-  }
-
-  const onPointerDown = (e) => {
-    setDragging(true)
-    dragStartX.current = e.clientX
-    offsetStart.current = offset
-    e.currentTarget.setPointerCapture(e.pointerId)
-  }
-
-  const onPointerMove = (e) => {
-    if (!dragging) return
-    const delta = e.clientX - dragStartX.current
-    setOffset(clamp(offsetStart.current + delta))
-  }
-
-  const onPointerUp = () => setDragging(false)
+  const [interacting, setInteracting] = useState(false)
 
   return (
     <div style={{ background: '#0b1520', color: '#f5f5f0', fontFamily: 'Archivo, sans-serif' }}>
@@ -57,83 +29,76 @@ function App() {
         <span style={{ fontSize: '0.75rem', letterSpacing: '0.1em', opacity: 0.75 }}>MENU</span>
       </nav>
 
-      <div
-        ref={containerRef}
-        onPointerDown={onPointerDown}
-        onPointerMove={onPointerMove}
-        onPointerUp={onPointerUp}
-        onPointerLeave={onPointerUp}
-        style={{
-          position: 'relative',
-          width: '100%',
-          height: '58vh',
-          overflow: 'hidden',
-          touchAction: 'pan-y',
-          cursor: dragging ? 'grabbing' : 'grab',
-        }}
-      >
-        <div
-          ref={imageRef}
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            height: '100%',
-            width: '170%',
-            transform: `translateX(${offset}px)`,
-            transition: dragging ? 'none' : 'transform 0.2s ease-out',
-          }}
+      <div style={{ position: 'relative', width: '100%', height: '58vh', overflow: 'hidden' }}>
+        <TransformWrapper
+          initialScale={1}
+          minScale={1}
+          maxScale={3}
+          centerOnInit
+          wheel={{ step: 0.15 }}
+          pinch={{ step: 5 }}
+          doubleClick={{ mode: 'zoomIn' }}
+          onPanningStart={() => setInteracting(true)}
+          onPanningStop={() => setInteracting(false)}
+          onZoomStart={() => setInteracting(true)}
+          onZoomStop={() => setInteracting(false)}
         >
-          <img
-            src="/panch-kailash/0db44277-5b9b-4617-9a13-0b1ba8492cb0.webp"
-            alt="Panch Kailash panorama"
-            draggable="false"
-            style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              display: 'block',
-              pointerEvents: 'none',
-              userSelect: 'none',
-            }}
-          />
-
-          <svg
-            style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none' }}
-            preserveAspectRatio="none"
+          <TransformComponent
+            wrapperStyle={{ width: '100%', height: '100%' }}
+            contentStyle={{ width: '100%', height: '100%' }}
           >
-            <polyline
-              points={PEAKS.map((p) => `${p.left},${p.top}`).join(' ')}
-              fill="none"
-              stroke="rgba(212, 175, 120, 0.85)"
-              strokeWidth="2"
-              strokeDasharray="2,8"
-              strokeLinecap="round"
-              vectorEffect="non-scaling-stroke"
-            />
-          </svg>
+            <div style={{ position: 'relative', width: '100%', height: '58vh' }}>
+              <img
+                src="/panch-kailash/0db44277-5b9b-4617-9a13-0b1ba8492cb0.webp"
+                alt="Panch Kailash panorama"
+                draggable="false"
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  display: 'block',
+                  userSelect: 'none',
+                }}
+              />
 
-          {PEAKS.map((peak) => (
-            <button
-              key={peak.id}
-              onClick={() => setSelected(peak)}
-              aria-label={peak.name}
-              style={{
-                position: 'absolute',
-                top: peak.top,
-                left: peak.left,
-                transform: 'translate(-50%, -50%)',
-                width: 22,
-                height: 22,
-                borderRadius: '50%',
-                background: 'rgba(212, 175, 120, 0.9)',
-                border: '2px solid #f5f5f0',
-                cursor: 'pointer',
-                padding: 0,
-              }}
-            />
-          ))}
-        </div>
+              <svg
+                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none' }}
+                preserveAspectRatio="none"
+              >
+                <polyline
+                  points={PEAKS.map((p) => `${p.left},${p.top}`).join(' ')}
+                  fill="none"
+                  stroke="rgba(212, 175, 120, 0.85)"
+                  strokeWidth="2"
+                  strokeDasharray="2,8"
+                  strokeLinecap="round"
+                  vectorEffect="non-scaling-stroke"
+                />
+              </svg>
+
+              {PEAKS.map((peak) => (
+                <button
+                  key={peak.id}
+                  onClick={() => setSelected(peak)}
+                  aria-label={peak.name}
+                  style={{
+                    position: 'absolute',
+                    top: peak.top,
+                    left: peak.left,
+                    transform: 'translate(-50%, -50%)',
+                    width: 22,
+                    height: 22,
+                    borderRadius: '50%',
+                    background: 'rgba(212, 175, 120, 0.9)',
+                    border: '2px solid #f5f5f0',
+                    cursor: 'pointer',
+                    padding: 0,
+                  }}
+                />
+              ))}
+            </div>
+          </TransformComponent>
+        </TransformWrapper>
 
         <div
           style={{
@@ -145,8 +110,8 @@ function App() {
             justifyContent: 'center',
             textAlign: 'center',
             padding: '1.5rem',
-            background: 'linear-gradient(to bottom, rgba(0,0,0,0.35), rgba(0,0,0,0.15) 45%, rgba(0,0,0,0.5))',
-            opacity: dragging ? 0.12 : 1,
+            background: 'linear-gradient(to bottom, rgba(0,0,0,0.35), rgba(0,0,0,0.1) 45%, rgba(0,0,0,0.45))',
+            opacity: interacting ? 0.12 : 1,
             transition: 'opacity 0.2s ease',
             pointerEvents: 'none',
           }}
@@ -185,12 +150,12 @@ function App() {
             textAlign: 'center',
             fontSize: '0.7rem',
             letterSpacing: '0.1em',
-            opacity: dragging ? 0 : 0.55,
+            opacity: interacting ? 0 : 0.55,
             transition: 'opacity 0.2s ease',
             pointerEvents: 'none',
           }}
         >
-          ↔ DRAG TO EXPLORE
+          ↔ DRAG • PINCH TO ZOOM
         </div>
       </div>
 
