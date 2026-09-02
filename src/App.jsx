@@ -2,16 +2,15 @@ import { useState } from 'react'
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch'
 
 const PEAKS = [
-  { id: 'manimahesh', name: 'Manimahesh Kailash', tag: 'Chamba Valley', top: '38%', left: '10%' },
-  { id: 'adi', name: 'Adi Kailash', tag: 'Sacred Summit', top: '32%', left: '68%' },
-  { id: 'mount', name: 'Mount Kailash', tag: 'Kailash Mansarovar', top: '28%', left: '45%' },
-  { id: 'kinnaur', name: 'Kinnaur Kailash', tag: 'Sacred Range', top: '40%', left: '25%' },
-  { id: 'shrikhand', name: 'Shrikhand Mahadev', tag: 'Sacred Trek', top: '35%', left: '55%' },
+  { id: 'kinnaur', name: 'Kinnaur Kailash', tag: 'Sacred Peak', top: '68%', left: '12%' },
+  { id: 'manimahesh', name: 'Manimahesh Kailash', tag: 'Chamba Valley', top: '62%', left: '29%' },
+  { id: 'adi', name: 'Adi Kailash', tag: 'Sacred Summit', top: '55%', left: '48%' },
+  { id: 'shrikhand', name: 'Shrikhand Mahadev', tag: 'Sacred Peak', top: '58%', left: '68%' },
+  { id: 'mount', name: 'Mount Kailash', tag: 'Kailash Mansarovar', top: '62%', left: '85%' },
 ]
 
 function App() {
   const [selected, setSelected] = useState(null)
-  const [interacting, setInteracting] = useState(false)
 
   return (
     <div style={{ background: '#0b1520', color: '#f5f5f0', fontFamily: 'Archivo, sans-serif' }}>
@@ -29,33 +28,55 @@ function App() {
         <span style={{ fontSize: '0.75rem', letterSpacing: '0.1em', opacity: 0.75 }}>MENU</span>
       </nav>
 
-      <div style={{ position: 'relative', width: '100%', height: '58vh', overflow: 'hidden' }}>
+      <div style={{ textAlign: 'center', padding: '1rem 1.5rem 2rem' }}>
+        <h1
+          style={{
+            fontWeight: 900,
+            fontSize: 'clamp(2.1rem, 10vw, 4rem)',
+            letterSpacing: '0.02em',
+            lineHeight: 1,
+            margin: 0,
+            textTransform: 'uppercase',
+          }}
+        >
+          Panch Kailash
+        </h1>
+        <p
+          style={{
+            fontFamily: '"Cormorant Garamond", serif',
+            fontSize: 'clamp(1rem, 3.5vw, 1.3rem)',
+            fontStyle: 'italic',
+            opacity: 0.85,
+            marginTop: '0.6rem',
+          }}
+        >
+          A Journey Across Five Sacred Peaks
+        </p>
+      </div>
+
+      <div style={{ position: 'relative', width: '100%' }}>
         <TransformWrapper
           initialScale={1}
           minScale={1}
-          maxScale={3}
+          maxScale={4}
           centerOnInit
           wheel={{ step: 0.15 }}
           pinch={{ step: 5 }}
           doubleClick={{ mode: 'zoomIn' }}
-          onPanningStart={() => setInteracting(true)}
-          onPanningStop={() => setInteracting(false)}
-          onZoomStart={() => setInteracting(true)}
-          onZoomStop={() => setInteracting(false)}
+          panning={{ velocityDisabled: true }}
         >
           <TransformComponent
-            wrapperStyle={{ width: '100%', height: '100%' }}
-            contentStyle={{ width: '100%', height: '100%' }}
+            wrapperStyle={{ width: '100%' }}
+            contentStyle={{ width: '100%' }}
           >
-            <div style={{ position: 'relative', width: '100%', height: '58vh' }}>
+            <div style={{ position: 'relative', width: '100%' }}>
               <img
                 src="/panch-kailash/0db44277-5b9b-4617-9a13-0b1ba8492cb0.webp"
                 alt="Panch Kailash panorama"
                 draggable="false"
                 style={{
                   width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
+                  height: 'auto',
                   display: 'block',
                   userSelect: 'none',
                 }}
@@ -86,8 +107,8 @@ function App() {
                     top: peak.top,
                     left: peak.left,
                     transform: 'translate(-50%, -50%)',
-                    width: 22,
-                    height: 22,
+                    width: 20,
+                    height: 20,
                     borderRadius: '50%',
                     background: 'rgba(212, 175, 120, 0.9)',
                     border: '2px solid #f5f5f0',
@@ -99,65 +120,19 @@ function App() {
             </div>
           </TransformComponent>
         </TransformWrapper>
-
-        <div
-          style={{
-            position: 'absolute',
-            inset: 0,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            textAlign: 'center',
-            padding: '1.5rem',
-            background: 'linear-gradient(to bottom, rgba(0,0,0,0.35), rgba(0,0,0,0.1) 45%, rgba(0,0,0,0.45))',
-            opacity: interacting ? 0.12 : 1,
-            transition: 'opacity 0.2s ease',
-            pointerEvents: 'none',
-          }}
-        >
-          <h1
-            style={{
-              fontWeight: 900,
-              fontSize: 'clamp(2rem, 10vw, 3.8rem)',
-              letterSpacing: '0.02em',
-              lineHeight: 1,
-              margin: 0,
-              textTransform: 'uppercase',
-            }}
-          >
-            Panch Kailash
-          </h1>
-          <p
-            style={{
-              fontFamily: '"Cormorant Garamond", serif',
-              fontSize: 'clamp(1rem, 3.5vw, 1.3rem)',
-              fontStyle: 'italic',
-              opacity: 0.9,
-              marginTop: '0.6rem',
-            }}
-          >
-            A Journey Across Five Sacred Peaks
-          </p>
-        </div>
-
-        <div
-          style={{
-            position: 'absolute',
-            bottom: '0.75rem',
-            left: 0,
-            right: 0,
-            textAlign: 'center',
-            fontSize: '0.7rem',
-            letterSpacing: '0.1em',
-            opacity: interacting ? 0 : 0.55,
-            transition: 'opacity 0.2s ease',
-            pointerEvents: 'none',
-          }}
-        >
-          ↔ DRAG • PINCH TO ZOOM
-        </div>
       </div>
+
+      <p
+        style={{
+          textAlign: 'center',
+          fontSize: '0.7rem',
+          letterSpacing: '0.1em',
+          opacity: 0.45,
+          padding: '0.75rem 1.5rem 0',
+        }}
+      >
+        ↔ DRAG • PINCH TO ZOOM
+      </p>
 
       <div style={{ display: 'flex', justifyContent: 'center', padding: '1.75rem 1.5rem' }}>
         <button
