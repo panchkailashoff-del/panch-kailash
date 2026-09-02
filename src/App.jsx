@@ -1,118 +1,200 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 
 const PEAKS = [
-  { id: 'manimahesh', name: 'Manimahesh Kailash', tag: 'Chamba Valley', top: '58%', left: '10%' },
-  { id: 'adi', name: 'Adi Kailash', tag: 'Sacred Summit', top: '38%', left: '78%' },
-  { id: 'mount', name: 'Mount Kailash', tag: 'Kailash Mansarovar', top: '30%', left: '50%' },
-  { id: 'kinnaur', name: 'Kinnaur Kailash', tag: 'Sacred Range', top: '48%', left: '30%' },
-  { id: 'shrikhand', name: 'Shrikhand Mahadev', tag: 'Sacred Trek', top: '45%', left: '62%' },
+  { id: 'manimahesh', name: 'Manimahesh Kailash', tag: 'Chamba Valley', top: '38%', left: '10%' },
+  { id: 'adi', name: 'Adi Kailash', tag: 'Sacred Summit', top: '32%', left: '68%' },
+  { id: 'mount', name: 'Mount Kailash', tag: 'Kailash Mansarovar', top: '28%', left: '45%' },
+  { id: 'kinnaur', name: 'Kinnaur Kailash', tag: 'Sacred Range', top: '40%', left: '25%' },
+  { id: 'shrikhand', name: 'Shrikhand Mahadev', tag: 'Sacred Trek', top: '35%', left: '55%' },
 ]
 
 function App() {
   const [selected, setSelected] = useState(null)
+  const [dragging, setDragging] = useState(false)
+  const [offset, setOffset] = useState(0)
+  const containerRef = useRef(null)
+  const imageRef = useRef(null)
+  const dragStartX = useRef(0)
+  const offsetStart = useRef(0)
+
+  const clamp = (value) => {
+    const containerWidth = containerRef.current?.offsetWidth || 0
+    const imageWidth = imageRef.current?.offsetWidth || 0
+    const minOffset = Math.min(0, containerWidth - imageWidth)
+    if (value > 0) return 0
+    if (value < minOffset) return minOffset
+    return value
+  }
+
+  const onPointerDown = (e) => {
+    setDragging(true)
+    dragStartX.current = e.clientX
+    offsetStart.current = offset
+    e.currentTarget.setPointerCapture(e.pointerId)
+  }
+
+  const onPointerMove = (e) => {
+    if (!dragging) return
+    const delta = e.clientX - dragStartX.current
+    setOffset(clamp(offsetStart.current + delta))
+  }
+
+  const onPointerUp = () => setDragging(false)
 
   return (
-    <div
-      style={{
-        position: 'relative',
-        width: '100%',
-        minHeight: '100vh',
-        backgroundImage: 'url(/panch-kailash/0db44277-5b9b-4617-9a13-0b1ba8492cb0.webp)',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        fontFamily: 'Archivo, sans-serif',
-        color: '#f5f5f0',
-        overflow: 'hidden',
-      }}
-    >
-      <div
-        style={{
-          position: 'absolute',
-          inset: 0,
-          background: 'linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.2) 40%, rgba(0,0,0,0.6))',
-        }}
-      />
-
+    <div style={{ background: '#0b1520', color: '#f5f5f0', fontFamily: 'Archivo, sans-serif' }}>
       <nav
         style={{
-          position: 'relative',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          padding: '1.2rem 1.5rem',
+          padding: '1.1rem 1.5rem',
         }}
       >
         <span style={{ fontWeight: 700, letterSpacing: '0.08em', fontSize: '0.95rem' }}>
           PANCH KAILASH
         </span>
-        <span style={{ fontSize: '0.75rem', letterSpacing: '0.1em', opacity: 0.75 }}>
-          MENU
-        </span>
+        <span style={{ fontSize: '0.75rem', letterSpacing: '0.1em', opacity: 0.75 }}>MENU</span>
       </nav>
 
-      <div style={{ position: 'relative', textAlign: 'center', padding: '3rem 1.5rem 2rem' }}>
-        <h1
-          style={{
-            fontWeight: 900,
-            fontSize: 'clamp(2.3rem, 11vw, 4.5rem)',
-            letterSpacing: '0.02em',
-            lineHeight: 1,
-            margin: 0,
-            textTransform: 'uppercase',
-          }}
-        >
-          Panch Kailash
-        </h1>
-        <p
-          style={{
-            fontFamily: '"Cormorant Garamond", serif',
-            fontSize: 'clamp(1.1rem, 4vw, 1.5rem)',
-            fontStyle: 'italic',
-            opacity: 0.9,
-            marginTop: '0.75rem',
-          }}
-        >
-          A Journey Across Five Sacred Peaks
-        </p>
-      </div>
-
-      <svg
-        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none' }}
-        preserveAspectRatio="none"
+      <div
+        ref={containerRef}
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={onPointerUp}
+        onPointerLeave={onPointerUp}
+        style={{
+          position: 'relative',
+          width: '100%',
+          height: '58vh',
+          overflow: 'hidden',
+          touchAction: 'pan-y',
+          cursor: dragging ? 'grabbing' : 'grab',
+        }}
       >
-        <polyline
-          points={PEAKS.map((p) => `${p.left},${p.top}`).join(' ')}
-          fill="none"
-          stroke="rgba(212, 175, 120, 0.85)"
-          strokeWidth="2"
-          strokeDasharray="2,8"
-          strokeLinecap="round"
-          vectorEffect="non-scaling-stroke"
-        />
-      </svg>
-
-      {PEAKS.map((peak) => (
-        <button
-          key={peak.id}
-          onClick={() => setSelected(peak)}
-          aria-label={peak.name}
+        <div
+          ref={imageRef}
           style={{
             position: 'absolute',
-            top: peak.top,
-            left: peak.left,
-            transform: 'translate(-50%, -50%)',
-            width: 22,
-            height: 22,
-            borderRadius: '50%',
-            background: 'rgba(212, 175, 120, 0.9)',
-            border: '2px solid #f5f5f0',
-            cursor: 'pointer',
-            padding: 0,
+            top: 0,
+            left: 0,
+            height: '100%',
+            width: '170%',
+            transform: `translateX(${offset}px)`,
+            transition: dragging ? 'none' : 'transform 0.2s ease-out',
           }}
-        />
-      ))}
+        >
+          <img
+            src="/panch-kailash/0db44277-5b9b-4617-9a13-0b1ba8492cb0.webp"
+            alt="Panch Kailash panorama"
+            draggable="false"
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              display: 'block',
+              pointerEvents: 'none',
+              userSelect: 'none',
+            }}
+          />
 
-      <div style={{ position: 'relative', display: 'flex', justifyContent: 'center', paddingBottom: '2.5rem' }}>
+          <svg
+            style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none' }}
+            preserveAspectRatio="none"
+          >
+            <polyline
+              points={PEAKS.map((p) => `${p.left},${p.top}`).join(' ')}
+              fill="none"
+              stroke="rgba(212, 175, 120, 0.85)"
+              strokeWidth="2"
+              strokeDasharray="2,8"
+              strokeLinecap="round"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+
+          {PEAKS.map((peak) => (
+            <button
+              key={peak.id}
+              onClick={() => setSelected(peak)}
+              aria-label={peak.name}
+              style={{
+                position: 'absolute',
+                top: peak.top,
+                left: peak.left,
+                transform: 'translate(-50%, -50%)',
+                width: 22,
+                height: 22,
+                borderRadius: '50%',
+                background: 'rgba(212, 175, 120, 0.9)',
+                border: '2px solid #f5f5f0',
+                cursor: 'pointer',
+                padding: 0,
+              }}
+            />
+          ))}
+        </div>
+
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            textAlign: 'center',
+            padding: '1.5rem',
+            background: 'linear-gradient(to bottom, rgba(0,0,0,0.35), rgba(0,0,0,0.15) 45%, rgba(0,0,0,0.5))',
+            opacity: dragging ? 0.12 : 1,
+            transition: 'opacity 0.2s ease',
+            pointerEvents: 'none',
+          }}
+        >
+          <h1
+            style={{
+              fontWeight: 900,
+              fontSize: 'clamp(2rem, 10vw, 3.8rem)',
+              letterSpacing: '0.02em',
+              lineHeight: 1,
+              margin: 0,
+              textTransform: 'uppercase',
+            }}
+          >
+            Panch Kailash
+          </h1>
+          <p
+            style={{
+              fontFamily: '"Cormorant Garamond", serif',
+              fontSize: 'clamp(1rem, 3.5vw, 1.3rem)',
+              fontStyle: 'italic',
+              opacity: 0.9,
+              marginTop: '0.6rem',
+            }}
+          >
+            A Journey Across Five Sacred Peaks
+          </p>
+        </div>
+
+        <div
+          style={{
+            position: 'absolute',
+            bottom: '0.75rem',
+            left: 0,
+            right: 0,
+            textAlign: 'center',
+            fontSize: '0.7rem',
+            letterSpacing: '0.1em',
+            opacity: dragging ? 0 : 0.55,
+            transition: 'opacity 0.2s ease',
+            pointerEvents: 'none',
+          }}
+        >
+          ↔ DRAG TO EXPLORE
+        </div>
+      </div>
+
+      <div style={{ display: 'flex', justifyContent: 'center', padding: '1.75rem 1.5rem' }}>
         <button
           style={{
             padding: '0.9rem 2rem',
@@ -131,21 +213,17 @@ function App() {
         </button>
       </div>
 
-      <div
+      <p
         style={{
-          position: 'absolute',
-          right: '0.75rem',
-          top: '50%',
-          transform: 'translateY(-50%) rotate(90deg)',
-          transformOrigin: 'right center',
+          textAlign: 'center',
           fontSize: '0.7rem',
-          letterSpacing: '0.15em',
-          opacity: 0.6,
-          whiteSpace: 'nowrap',
+          letterSpacing: '0.12em',
+          opacity: 0.5,
+          padding: '0 1.5rem 2rem',
         }}
       >
         FOUNDER — AAKASH KAINTHLA
-      </div>
+      </p>
 
       {selected && (
         <div
@@ -154,7 +232,7 @@ function App() {
             left: 0,
             right: 0,
             bottom: 0,
-            background: 'rgba(11, 21, 32, 0.96)',
+            background: 'rgba(11, 21, 32, 0.97)',
             borderTop: '1px solid rgba(245,245,240,0.2)',
             padding: '1.25rem 1.5rem 1.75rem',
             zIndex: 10,
