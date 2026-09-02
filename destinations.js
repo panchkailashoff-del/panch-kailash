@@ -1,0 +1,22 @@
+## `public/404.html`
+
+```html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Panch Kailash</title>
+    <!--
+      GitHub Pages serves this file for any unknown path.
+      We store the requested path and bounce back to index.html,
+      which restores it via the inline script (see index.html).
+    -->
+    <script>
+      sessionStorage.redirect = location.href;
+    </script>
+    <meta http-equiv="refresh" content="0; URL='/panch-kailash/'" />
+  </head>
+  <body>
+    Redirecting…
+  </body>
+</html>
