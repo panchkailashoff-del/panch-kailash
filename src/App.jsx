@@ -243,5 +243,3 @@ function App() {
 }
 
 export default App
-EOF
-echo done
