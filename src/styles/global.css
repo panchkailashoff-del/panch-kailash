@@ -208,19 +208,9 @@ img {
   will-change: transform;
 }
 
-/* Mobile framing: show the full image uncropped. object-fit: contain
-   means no peak or edge ever gets cut off — the tradeoff is that
-   empty space (letterboxing) can appear above/below the image,
-   which the gradient + background color mostly hides. */
-@media (max-width: 700px) {
-  .hero {
-    background: var(--color-bg);
-  }
-  .hero__image {
-    object-fit: contain;
-    object-position: center;
-  }
-}
+/* Background now always covers the full hero section — with the
+   portal design the hero is much taller than one screen, so
+   "contain" would leave large empty gaps above/below the photo. */
 
 .hero__gradient {
   position: absolute;
@@ -356,6 +346,7 @@ img {
   position: absolute;
   inset: 0;
   z-index: 3;
+  pointer-events: none;
 }
 
 .hotspot {
@@ -369,6 +360,7 @@ img {
   background: none;
   border: none;
   padding: 0;
+  pointer-events: auto;
 }
 
 .hotspot__marker {
@@ -978,3 +970,4 @@ img {
 }
 
 .breadcrumb a { color: var(--color-accent); }
+    
