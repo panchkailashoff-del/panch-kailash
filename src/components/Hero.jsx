@@ -24,7 +24,6 @@ export default function Hero() {
 
   const bgOffset = reducedMotion ? 0 : scrollY * 0.15;
   const textOffset = reducedMotion ? 0 : scrollY * 0.55;
-  const maskOffset = reducedMotion ? 0 : scrollY * 0.08;
 
   const handleNavigate = (id) => {
     if (reducedMotion) {
@@ -80,18 +79,6 @@ export default function Hero() {
         <div className="hero__scroll" aria-hidden="true">
           <span className="hero__scroll-indicator" />
         </div>
-      </div>
-
-      {/* Always visible from page load — gives the permanent
-          "text tucked behind the mountains" look. */}
-      <div
-        className="hero__foreground-peaks"
-        style={{
-          transform: `translateY(${-maskOffset}px) scale(1.08)`,
-        }}
-        aria-hidden="true"
-      >
-        <img src={heroImage} alt="" />
       </div>
 
       {transitioning && (
