@@ -17,11 +17,11 @@ const BASE = import.meta.env.BASE_URL;
 // across phones, tablets and desktops. Adjust these two numbers per
 // destination to reposition a marker; nothing else needs to change.
 export const heroHotspots = [
-  { id: "mount-kailash", x: 50, y: 28 },
-  { id: "adi-kailash", x: 22, y: 42 },
-  { id: "shrikhand-mahadev", x: 66, y: 55 },
-  { id: "kinnaur-kailash", x: 80, y: 38 },
-  { id: "manimahesh-kailash", x: 37, y: 62 },
+  { id: "mount-kailash", x: 78.4, y: 44.9 },
+  { id: "adi-kailash", x: 56.4, y: 39.2 },
+  { id: "shrikhand-mahadev", x: 68.9, y: 41.5 },
+  { id: "kinnaur-kailash", x: 32.1, y: 44.3 },
+  { id: "manimahesh-kailash", x: 40.4, y: 40.7 },
 ];
 
 export const destinations = {
