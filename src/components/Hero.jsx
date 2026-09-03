@@ -22,12 +22,8 @@ export default function Hero() {
     ? 1
     : Math.max(0, 1 - scrollY / FADE_DISTANCE);
 
-  // Background moves slowly (far away feel)
   const bgOffset = reducedMotion ? 0 : scrollY * 0.15;
-  // Text moves up faster than background — this is what makes it
-  // look like it's sliding UNDER the mountain mask layer.
   const textOffset = reducedMotion ? 0 : scrollY * 0.55;
-  // Mask layer barely moves — it stays "in place" so text passes behind it.
   const maskOffset = reducedMotion ? 0 : scrollY * 0.08;
 
   const handleNavigate = (id) => {
@@ -86,13 +82,13 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Foreground mountain mask — same image, but only the top
-          (peaks) portion stays visible via a mask gradient. Sits
-          ABOVE the text in z-index, so as text scrolls up under it,
-          it looks like the text is sinking behind the mountains. */}
+      {/* Always visible from page load — gives the permanent
+          "text tucked behind the mountains" look. */}
       <div
         className="hero__foreground-peaks"
-        style={{ transform: `translateY(${-maskOffset}px) scale(1.08)` }}
+        style={{
+          transform: `translateY(${-maskOffset}px) scale(1.08)`,
+        }}
         aria-hidden="true"
       >
         <img src={heroImage} alt="" />
