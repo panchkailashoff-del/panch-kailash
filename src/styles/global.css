@@ -292,6 +292,65 @@ img {
   50% { opacity: 1; }
 }
 
+/* -------------------------------------------------------- Hero portal */
+/* Circular draggable panorama, shown above the title like the
+   Kainthla Travel AI reference. */
+
+.hero__portal-wrap {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  padding-top: clamp(24px, 6vh, 56px);
+}
+
+.hero__portal {
+  position: relative;
+  width: clamp(220px, 62vw, 380px);
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  cursor: grab;
+  touch-action: pan-y;
+  background: var(--color-bg-raised);
+}
+
+.hero__portal:active {
+  cursor: grabbing;
+}
+
+.hero__portal-image {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  transform: translateX(-50%);
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.hero__portal-hint {
+  position: absolute;
+  left: 50%;
+  bottom: var(--space-3);
+  transform: translateX(-50%);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text);
+  background: rgba(10, 10, 11, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  padding: 6px 14px;
+  pointer-events: none;
+  backdrop-filter: blur(6px);
+  white-space: nowrap;
+}
+
 /* ---------------------------------------------------------------- Hotspot */
 
 .hotspot-layer {
@@ -920,4 +979,3 @@ img {
 }
 
 .breadcrumb a { color: var(--color-accent); }
-                                                         
