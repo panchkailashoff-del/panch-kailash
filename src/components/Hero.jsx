@@ -11,20 +11,25 @@ export default function Hero() {
   const navigate = useNavigate();
   const reducedMotion = useReducedMotion();
 
-  // Fade the hero text out as the user scrolls down.
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const FADE_DISTANCE = 300; // px scrolled until fully invisible
+  const FADE_DISTANCE = 350;
   const contentOpacity = reducedMotion
     ? 1
     : Math.max(0, 1 - scrollY / FADE_DISTANCE);
 
-  // Short, fast cinematic fade before route change — not a loading
-  // animation, just enough to avoid an abrupt cut to the next page.
+  // Background moves slowly (far away feel)
+  const bgOffset = reducedMotion ? 0 : scrollY * 0.15;
+  // Text moves up faster than background — this is what makes it
+  // look like it's sliding UNDER the mountain mask layer.
+  const textOffset = reducedMotion ? 0 : scrollY * 0.55;
+  // Mask layer barely moves — it stays "in place" so text passes behind it.
+  const maskOffset = reducedMotion ? 0 : scrollY * 0.08;
+
   const handleNavigate = (id) => {
     if (reducedMotion) {
       navigate(`/kailash/${id}`);
@@ -41,6 +46,7 @@ export default function Hero() {
         src={heroImage}
         alt="Panoramic view of the Himalayas showing the five Panch Kailash peaks"
         fetchpriority="high"
+        style={{ transform: `translateY(${bgOffset}px) scale(1.08)` }}
       />
       <div className="hero__gradient" aria-hidden="true" />
 
@@ -62,7 +68,7 @@ export default function Hero() {
         className="hero__content"
         style={{
           opacity: contentOpacity,
-          transform: `translateY(${(1 - contentOpacity) * 20}px)`,
+          transform: `translateY(${-textOffset}px)`,
           pointerEvents: contentOpacity < 0.1 ? "none" : "auto",
         }}
       >
@@ -78,6 +84,18 @@ export default function Hero() {
         <div className="hero__scroll" aria-hidden="true">
           <span className="hero__scroll-indicator" />
         </div>
+      </div>
+
+      {/* Foreground mountain mask — same image, but only the top
+          (peaks) portion stays visible via a mask gradient. Sits
+          ABOVE the text in z-index, so as text scrolls up under it,
+          it looks like the text is sinking behind the mountains. */}
+      <div
+        className="hero__foreground-peaks"
+        style={{ transform: `translateY(${-maskOffset}px) scale(1.08)` }}
+        aria-hidden="true"
+      >
+        <img src={heroImage} alt="" />
       </div>
 
       {transitioning && (
