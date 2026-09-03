@@ -208,6 +208,20 @@ img {
   will-change: transform;
 }
 
+/* Mobile framing: show the full image uncropped. object-fit: contain
+   means no peak or edge ever gets cut off — the tradeoff is that
+   empty space (letterboxing) can appear above/below the image,
+   which the gradient + background color mostly hides. */
+@media (max-width: 700px) {
+  .hero {
+    background: var(--color-bg);
+  }
+  .hero__image {
+    object-fit: contain;
+    object-position: center;
+  }
+}
+
 .hero__gradient {
   position: absolute;
   inset: 0;
@@ -276,41 +290,6 @@ img {
 @keyframes scroll-pulse {
   0%, 100% { opacity: 0.2; }
   50% { opacity: 1; }
-}
-
-/* -------------------------------------------------------- Hero foreground */
-/* Same hero image, masked to keep only the upper (peaks) portion visible.
-   Sits above .hero__content in z-index, so as the text scrolls upward
-   (via inline transform in Hero.jsx) it visually disappears behind
-   the mountains. */
-
-.hero__foreground-peaks {
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  overflow: hidden;
-  pointer-events: none;
-  will-change: transform;
-
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    black 0%,
-    black 30%,
-    transparent 48%
-  );
-  mask-image: linear-gradient(
-    to bottom,
-    black 0%,
-    black 30%,
-    transparent 48%
-  );
-}
-
-.hero__foreground-peaks img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
 }
 
 /* ---------------------------------------------------------------- Hotspot */
@@ -941,4 +920,4 @@ img {
 }
 
 .breadcrumb a { color: var(--color-accent); }
-  
+                                                         
