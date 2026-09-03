@@ -169,10 +169,11 @@ function PanoramaPortal({ image }) {
         draggable={false}
         style={{
           width: `${IMAGE_WIDTH_MULTIPLIER * 100}%`,
-          transform: `translateX(${offsetX}px)`,
+          transform: `translateX(calc(-50% + ${offsetX}px))`,
         }}
       />
       <span className="hero__portal-hint">← Swipe to Explore →</span>
     </div>
   );
-}
+        }
+  
