@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Hotspot from "./Hotspot";
 import { destinations, heroHotspots, heroImage } from "../data/destinations";
@@ -7,8 +7,21 @@ import useReducedMotion from "../hooks/useReducedMotion";
 export default function Hero() {
   const [activeId, setActiveId] = useState(null);
   const [transitioning, setTransitioning] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
   const navigate = useNavigate();
   const reducedMotion = useReducedMotion();
+
+  // Fade the hero text out as the user scrolls down.
+  useEffect(() => {
+    const handleScroll = () => setScrollY(window.scrollY);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const FADE_DISTANCE = 300; // px scrolled until fully invisible
+  const contentOpacity = reducedMotion
+    ? 1
+    : Math.max(0, 1 - scrollY / FADE_DISTANCE);
 
   // Short, fast cinematic fade before route change — not a loading
   // animation, just enough to avoid an abrupt cut to the next page.
@@ -45,7 +58,14 @@ export default function Hero() {
         ))}
       </div>
 
-      <div className="hero__content">
+      <div
+        className="hero__content"
+        style={{
+          opacity: contentOpacity,
+          transform: `translateY(${(1 - contentOpacity) * 20}px)`,
+          pointerEvents: contentOpacity < 0.1 ? "none" : "auto",
+        }}
+      >
         <span className="hero__eyebrow">Panch Kailash</span>
         <h1 className="hero__title">A Journey Across Five Sacred Peaks</h1>
         <p className="hero__tagline">
