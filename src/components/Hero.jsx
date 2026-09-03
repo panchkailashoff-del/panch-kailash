@@ -175,5 +175,4 @@ function PanoramaPortal({ image }) {
       <span className="hero__portal-hint">← Swipe to Explore →</span>
     </div>
   );
-        }
-  
+      }
