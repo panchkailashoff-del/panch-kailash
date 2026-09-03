@@ -328,7 +328,6 @@ img {
   height: 100%;
   max-width: none;
   object-fit: cover;
-  transform: translateX(-50%);
   user-select: none;
   -webkit-user-drag: none;
 }
