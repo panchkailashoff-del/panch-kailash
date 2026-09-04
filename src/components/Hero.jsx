@@ -41,7 +41,7 @@ export default function Hero() {
         src={heroImage}
         alt="Panoramic view of the Himalayas showing the five Panch Kailash peaks"
         fetchpriority="high"
-        style={{ transform: `translateY(${bgOffset}px) scale(1.08)` }}
+        style={{ transform: `translateY(${bgOffset}px) scale(1.18)` }}
       />
       <div className="hero__gradient" aria-hidden="true" />
 
@@ -175,4 +175,4 @@ function PanoramaPortal({ image }) {
       <span className="hero__portal-hint">← Swipe to Explore →</span>
     </div>
   );
-      }
+}
