@@ -206,6 +206,7 @@ img {
   object-fit: cover;
   object-position: center;
   will-change: transform;
+  filter: blur(28px);
 }
 
 /* Background now always covers the full hero section — with the
@@ -970,4 +971,4 @@ img {
 }
 
 .breadcrumb a { color: var(--color-accent); }
-    
+  
