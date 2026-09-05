@@ -3,7 +3,7 @@ import { getDestination } from "../data/destinations";
 import StatusBanner from "../components/StatusBanner";
 import SectionTitle from "../components/SectionTitle";
 import FAQ from "../components/FAQ";
-import ModelViewer from "../components/ModelViewer";
+import PanoramaViewer from "../components/PanoramaViewer";
 import NotFound from "./NotFound";
 import { usePageMeta } from "../utils/seo";
 
@@ -122,8 +122,8 @@ export default function DestinationPage() {
           booking.
         </p>
 
-        <SectionTitle eyebrow="3D Experience" title="Explore in 3D" subtitle="Drag to rotate · Pinch to zoom" />
-        <ModelViewer modelSrc={destination.model} fallbackImage={image} alt={`${name} 3D preview`} />
+        <SectionTitle eyebrow="360° View" title="Explore in 360°" subtitle="Drag to look around · Scroll to zoom" />
+        <PanoramaViewer image={image} alt={`${name} 360° panorama`} />
 
         <div style={{ marginTop: "var(--space-6)" }}>
           <SectionTitle eyebrow="FAQ" title="Frequently asked" />
